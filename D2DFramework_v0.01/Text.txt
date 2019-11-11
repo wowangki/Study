@@ -1,0 +1,48 @@
+void ImageModule::Render(float x, float y, float opacity)
+{
+	if (imageInfo == nullptr) return;
+	
+	//뿌려줄 이미지 위치
+	D2D1_RECT_F dxLocation = RectF(
+		x + _CAMERA->x,
+		y + _CAMERA->y,
+		x + _CAMERA->x + imageInfo->imageSize.width,
+		y + _CAMERA->y + imageInfo->imageSize.height
+	);
+
+	//실제 이미지 사이즈
+	D2D1_RECT_F dxSize = RectF(0.0f, 0.0f,
+		imageInfo->imageSize.width,
+		imageInfo->imageSize.height
+	);
+
+	_RenderTarget->DrawBitmap(imageInfo->pBitmap,
+		dxLocation,
+		opacity,
+		D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
+		dxSize);
+}
+
+
+void ImageModule::FrameRender(float x, float y, int cfX, int cfY, float opacity)
+{
+	if (imageInfo == nullptr) return;
+
+	//뿌려줄 이미지 위치
+	D2D1_RECT_F dxLocation = RectF(x, y,
+		x + imageInfo->frameImageSize.width,
+		y + imageInfo->frameImageSize.height
+	);
+
+	D2D1_RECT_F dxSize = RectF(
+		cfX * imageInfo->frameImageSize.width,
+		cfY * imageInfo->frameImageSize.height,
+		(cfX + 1) * imageInfo->frameImageSize.width,
+		(cfY + 1) * imageInfo->frameImageSize.height
+	);
+
+	_RenderTarget->DrawBitmap(imageInfo->pBitmap,
+		dxLocation,
+		opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
+		dxSize);
+}
