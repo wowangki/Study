@@ -1,5 +1,10 @@
 #pragma once
 
+//트랜스폼은 오브젝트에 무조건 하나만 생성하므로 유니티 처럼 일대일매치시켜두 되니까
+//오브젝트 생성시 무조건 하나 생성하고 메인 컴포넌트로 ~
+//friend로 gameobject랑 서로 묶어주면 유니티처럼 만들 수 있음
+//
+
 class Transform 
 {
 private:
