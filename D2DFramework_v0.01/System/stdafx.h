@@ -70,4 +70,7 @@ using namespace nString;
 using namespace nRadian;
 using namespace nFigure;
 
-#include "../Utill/SingletonHeader.h"
+#include "../Utill/CollisionHelper.h"
+using namespace nCollision;
+
+#include "../Module/Singleton/SingletonHeader.h"

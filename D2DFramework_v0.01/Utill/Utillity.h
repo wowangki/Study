@@ -15,37 +15,43 @@ namespace nFigure {
 		PIVOT_RB
 	};
 
-	inline D2D_RECT_F MakeRect(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT::PIVOT_LT) {
+	inline D2D_RECT_F MakeRect(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT_LT) {
+
+		D2D_RECT_F rc;
 
 		switch (pivot) {
 		case PIVOT_LT :
-			return RectF(pos.x, pos.y, pos.x + size.width, pos.y + size.height);
+			rc =  RectF(pos.x, pos.y, pos.x + size.width, pos.y + size.height);
 			break;
 		case PIVOT_LC:
-			return RectF(pos.x, pos.y - (size.height * 0.5f), pos.x + size.width, pos.y + (size.height * 0.5f));
+			rc = RectF(pos.x, pos.y - (size.height * 0.5f), pos.x + size.width, pos.y + (size.height * 0.5f));
 			break;
 		case PIVOT_LB :
-			return RectF(pos.x, pos.y - size.height, pos.x + size.width, pos.y);
+			rc = RectF(pos.x, pos.y - size.height, pos.x + size.width, pos.y);
 			break;
 		case PIVOT_CT :
-			return RectF(pos.x - (size.width * 0.5f), pos.y, pos.x + (size.width * 0.5f), pos.y + size.height);
+			rc = RectF(pos.x - (size.width * 0.5f), pos.y, pos.x + (size.width * 0.5f), pos.y + size.height);
 			break;
 		case PIVOT_CC :
-			return RectF(pos.x - (size.width * 0.5f), pos.y - (size.height * 0.5f), pos.x + (size.width * 0.5f), pos.y + (size.height * 0.5f));
+			rc = RectF(pos.x - (size.width * 0.5f), pos.y - (size.height * 0.5f), pos.x + (size.width * 0.5f), pos.y + (size.height * 0.5f));
 			break;
 		case PIVOT_CB :
-			return RectF(pos.x - (size.width * 0.5f), pos.y - size.height, pos.x + size.width, pos.y);
+			rc = RectF(pos.x - (size.width * 0.5f), pos.y - size.height, pos.x + size.width, pos.y);
 			break;
 		case PIVOT_RT :
-			return RectF(pos.x - size.width, pos.y, pos.x, pos.y + size.height);
+			rc = RectF(pos.x - size.width, pos.y, pos.x, pos.y + size.height);
 			break;
 		case PIVOT_RC :
-			return RectF(pos.x - size.width, pos.y - (size.height * 0.5f), pos.x, pos.y + (size.height * 0.5f));
+			rc = RectF(pos.x - size.width, pos.y - (size.height * 0.5f), pos.x, pos.y + (size.height * 0.5f));
 			break;
 		case PIVOT_RB :
-			return RectF(pos.x - size.width, pos.y - size.height, pos.x, pos.y);
+			rc = RectF(pos.x - size.width, pos.y - size.height, pos.x, pos.y);
+			break;
+		default:
 			break;
 		}
+
+		return rc;
 	}
 
 	inline D2D1_ELLIPSE MakeCircle(D2D_POINT_2F pos, D2D_SIZE_F size) {

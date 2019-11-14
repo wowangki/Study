@@ -1,10 +1,7 @@
 #pragma once
-#include "stdafx.h"
 
-//클래스는 네임스페이스로 바꿔서 정적함수로 만들던가
-//내부를 static함수로 만들어서 사용하면 번거롭지 않음
-class CollisionHelper {
-public:
+namespace nCollision {
+
 	bool isInRect(D2D_RECT_F from, D2D_RECT_F to)
 	{
 		if ((from.left <= to.right && from.right >= to.left) &&
@@ -61,24 +58,4 @@ public:
 
 		return false;
 	}
-};
-
-
-//이런 인터페이스는 인터페이스 헤더파일을 만들어서 한번에 불러오면 좋음 
-class ColliderBase;
-class ITrigger {
-
-public:
-	virtual void OnTriggerEnter(ColliderBase* other) = 0;
-	virtual void OnTriggerStay(ColliderBase* other) = 0;
-	virtual void OnTriggerExit(ColliderBase* other) = 0;
-};
-
-class ColliderBase;
-class ICollision {
-
-public:
-	virtual void OnCollisionEnter(ColliderBase* other) = 0;
-	virtual void OnCollisionStay(ColliderBase* other) = 0;
-	virtual void OnCollisionExit(ColliderBase* other) = 0;
 };
