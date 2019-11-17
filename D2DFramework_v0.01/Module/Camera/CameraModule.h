@@ -6,7 +6,6 @@ class CameraModule : public SingletonBase<CameraModule>
 public:
 	float x, y;
 
-public:
 	CameraModule();
 	~CameraModule();
 };

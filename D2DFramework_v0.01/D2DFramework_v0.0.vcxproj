@@ -141,84 +141,77 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Module\Collider\CollMediator\CollisionMediator.h">
+    <ClInclude Include="Component\Component.h" />
+    <ClInclude Include="Utill\CollisionHelper.h" />
+    <ClInclude Include="Component\Collider\CircleCollider\CircleCollider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Module\Command\ICommand.h" />
-    <ClInclude Include="Module\Collider\ColliderBase.h" />
+    <ClInclude Include="Component\Collider\ColliderManager\ColliderManager.h" />
+    <ClInclude Include="Component\Collider\Collider.h" />
+    <ClInclude Include="GameObject\GameObjectManager\GameObjectManager.h" />
     <ClInclude Include="GameObject\GameObject.h" />
-    <ClInclude Include="Module\State\IState.h" />
-    <ClInclude Include="Module\Collider\RectCollider\RectCollider.h" />
-    <ClInclude Include="GameObject\Test\Test.h" />
-    <ClInclude Include="Utill\CollisionHelper.h" />
     <ClInclude Include="MainEntry\MainEntry.h" />
-    <ClInclude Include="Module\Singleton\Color\ColorManager.h" />
-    <ClInclude Include="TempClass\Button\ButtonModule.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Module\Singleton\Camera\CameraModule.h" />
-    <ClInclude Include="TempClass\Effect\Effect.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="TempClass\Effect\EffectModule.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Module\Singleton\Font\FontManager.h" />
-    <ClInclude Include="Module\Singleton\Store\Image\ImageStore.h" />
+    <ClInclude Include="Module\Brush\BrushModule.h" />
+    <ClInclude Include="Module\Button\ButtonModule.h" />
+    <ClInclude Include="Module\Camera\CameraModule.h" />
+    <ClInclude Include="Module\Effect\Effect.h" />
+    <ClInclude Include="Module\Effect\EffectModule.h" />
+    <ClInclude Include="Module\Font\FontManager.h" />
+    <ClInclude Include="Module\Image\ImageManager.h" />
     <ClInclude Include="Module\Image\ImageModule.h" />
-    <ClInclude Include="Module\Singleton\Key\KeyModule.h" />
-    <ClInclude Include="Module\Singleton\Scene\SceneManager.h" />
-    <ClInclude Include="Module\Singleton\SingletonBase.h" />
-    <ClInclude Include="Module\Singleton\Store\Sound\SoundStore.h" />
-    <ClInclude Include="Module\Singleton\Timer\TimerModule.h" />
+    <ClInclude Include="Module\Key\KeyModule.h" />
+    <ClInclude Include="Module\Scene\SceneManager.h" />
+    <ClInclude Include="Module\SingletonBase.h" />
+    <ClInclude Include="Module\Sound\SoundModule.h" />
+    <ClInclude Include="Module\Timer\TimerModule.h" />
+    <ClInclude Include="Component\Collider\RectCollider\RectCollider.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="System\Application\cApplication.h" />
     <ClInclude Include="System\DefineHeader.h" />
     <ClInclude Include="System\Application\DX2DApp.h" />
     <ClInclude Include="System\stdafx.h" />
     <ClInclude Include="System\targetver.h" />
-    <ClInclude Include="Module\Transform\Transform.h" />
-    <ClInclude Include="Utill\ICollision.h" />
-    <ClInclude Include="Module\Singleton\SingletonHeader.h" />
+    <ClInclude Include="Component\Transform\Transform.h" />
+    <ClInclude Include="Utill\SingletonHeader.h" />
     <ClInclude Include="Utill\Utillity.h" />
-    <ClInclude Include="Utill\UIHelper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Module\Collider\CollMediator\CollisionMediator.cpp">
+    <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Utill\CollisionHelper.cpp" />
+    <ClCompile Include="Component\Collider\CircleCollider\CircleCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Component\Collider\ColliderManager\ColliderManager.cpp" />
+    <ClCompile Include="Component\Collider\Collider.cpp" />
+    <ClCompile Include="GameObject\GameObjectManager\GameObjectManager.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="MainEntry\MainEntry.cpp" />
-    <ClCompile Include="Module\Collider\ColliderBase.cpp" />
-    <ClCompile Include="Module\Singleton\Color\ColorManager.cpp" />
-    <ClCompile Include="Module\Collider\RectCollider\RectCollider.cpp" />
-    <ClCompile Include="TempClass\Button\ButtonModule.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Module\Singleton\Camera\CameraModule.cpp" />
-    <ClCompile Include="TempClass\Effect\Effect.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="TempClass\Effect\EffectModule.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Module\Singleton\Font\FontManager.cpp" />
-    <ClCompile Include="Module\Singleton\Store\Image\ImageStore.cpp" />
+    <ClCompile Include="Module\Brush\BrushModule.cpp" />
+    <ClCompile Include="Module\Button\ButtonModule.cpp" />
+    <ClCompile Include="Module\Camera\CameraModule.cpp" />
+    <ClCompile Include="Module\Effect\Effect.cpp" />
+    <ClCompile Include="Module\Effect\EffectModule.cpp" />
+    <ClCompile Include="Module\Font\FontManager.cpp" />
+    <ClCompile Include="Module\Image\ImageManager.cpp" />
     <ClCompile Include="Module\Image\ImageModule.cpp" />
-    <ClCompile Include="Module\Singleton\Key\KeyModule.cpp" />
-    <ClCompile Include="Module\Singleton\Scene\SceneManager.cpp" />
-    <ClCompile Include="Module\Singleton\Store\Sound\SoundStore.cpp" />
-    <ClCompile Include="Module\Singleton\Timer\TimerModule.cpp" />
+    <ClCompile Include="Module\Key\KeyModule.cpp" />
+    <ClCompile Include="Module\Scene\SceneManager.cpp" />
+    <ClCompile Include="Module\Sound\SoundModule.cpp" />
+    <ClCompile Include="Module\Timer\TimerModule.cpp" />
+    <ClCompile Include="Component\Collider\RectCollider\RectCollider.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="System\Application\cApplication.cpp" />
     <ClCompile Include="System\Application\DX2DApp.cpp" />
     <ClCompile Include="System\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="System\Application\winMain.cpp" />
-    <ClCompile Include="Module\Transform\Transform.cpp" />
-    <ClCompile Include="GameObject\Test\Test.cpp" />
+    <ClCompile Include="Component\Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Text.txt" />
+    <Text Include="TempCode.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

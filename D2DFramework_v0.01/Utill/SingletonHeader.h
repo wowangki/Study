@@ -10,7 +10,7 @@
 #define _TIMER TimerModule::GetInstance()
 
 #include "../Module/Key/KeyModule.h"
-#define _KEY KeyModule::GetInstance()
+#define _KEYCODE KeyModule::GetInstance()
 
 #include "../Module/Camera/CameraModule.h"
 #define _CAMERA CameraModule::GetInstance()

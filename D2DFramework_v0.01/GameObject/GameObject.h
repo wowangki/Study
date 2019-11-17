@@ -1,64 +1,48 @@
 #pragma once
-#include "../Utill/ICollision.h"
-enum OBJECT_MODE{
-	DEFAULT,
-	INGAME,
-	MAP_PLACEMENT
-};
+
+enum class OBJECT_MODE { DEFAULT, INGAME, TOOLSET };
+enum class LAYER { DEFAULT, PLAYER, ENEMY, UI, MAPOBJECT };
 
 class Transform;
-class GameObject : public ICollision
+class Collider;
+class GameObject
 {
-#pragma region Transform
-	// Transform Class
-	//protected:
-	//	D2D_POINT_2F pos;
-	//	D2D_SIZE_F size;
-	//	float angle;
-
 protected:
+	//Unique
+	string name;		// OBJECT NAME
+	string tag;			// OBJECT TAG
+	LAYER layer;		// LAYER
+	OBJECT_MODE mode;	// OBJECT PROCESS MODE
+	bool isActive;		// ACTIVATION STATE
+
+	// Transform
+	//D2D_POINT_2F pos;	// POSITION
+	//D2D_SIZE_F size;	// SIZE
+	//float angle;		// ANGLE of Radian
 	Transform* transform;
-#pragma endregion
 
-#pragma region Collider
-// Collider or Collision Class
-//protected:
-//	D2D_RECT_F rc;
-//	PIVOT pivot;
-//	bool onTrigger;
+	// FIGURE (RECT & Collision)
+	//D2D_RECT_F rc;	// RECT of FIND COLLISION
+	//PIVOT pivot;		// PIVOT
+	Collider* collider;
 
-protected:
-	ColliderBase* collider;
-#pragma endregion
+	// Image
+	string imgKey;		// IMGKEY
+	ImageModule* img;	// IMG
+	D2D_POINT_2L frame;	// FRAME
+	float frameTime;	// FRAMETIME
+	float elapsedTime;	// ELAPSEDTIME
+	bool isCull;
 
-#pragma region ETC
-//// ImageModule Class
-//protected:
-//	string imgKey;
-//	ImageModule* img;
-//	float opacity;
-//	bool isCull;
-//
-//// Animation Class
-//protected:
-//	D2D_POINT_2U frame;
-//	float frameRate;
-//	float elapsedTime;
-//
-//// Unique parameter
-//protected:
-//	string name;
-//	bool isActive;
-//	OBJECT_MODE mode;
-#pragma endregion
+	// Sound
+	SoundModule* sound; // SOUND
 
 public:
-	virtual void Init(void) = 0;
-	virtual void Release(void) = 0;
-	virtual void Update(void) = 0;
-	virtual void Render(void) = 0;
-
-	virtual void SelectObject(void) = 0;
-	virtual void SetObject(void) = 0;
+	GameObject();
+	~GameObject();
+	
+	inline virtual GameObject* Clone(void) = 0;
+	inline Transform* GetTransform(void) { return transform; }
+	inline Collider* GetCollider(void) { return collider; }
 };
 

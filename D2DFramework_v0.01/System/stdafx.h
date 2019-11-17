@@ -20,7 +20,6 @@
 #include <string>
 #include <memory>
 #include <time.h>
-#include <functional>
 using namespace std;
 
 // Direct2D Header File
@@ -73,4 +72,4 @@ using namespace nFigure;
 #include "../Utill/CollisionHelper.h"
 using namespace nCollision;
 
-#include "../Module/Singleton/SingletonHeader.h"
+#include "../Utill/SingletonHeader.h"

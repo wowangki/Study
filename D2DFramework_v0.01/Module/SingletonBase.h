@@ -19,7 +19,7 @@ template <typename T>
 T* SingletonBase<T>::GetInstance(void) {
 	if (!Instance) Instance = new T;
 	return Instance;
-}    
+}
 
 template <typename T>
 void SingletonBase<T>::ReleaseSingleton(void) {

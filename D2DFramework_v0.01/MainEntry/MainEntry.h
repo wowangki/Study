@@ -1,15 +1,9 @@
 #pragma once
 #include "../System/Application/cApplication.h"
 
-class GameObject;
-class CollisionMediator;
+
 class MainEntry : public cApplication
 {
-private:
-	GameObject* test;
-	GameObject* test2;
-
-	CollisionMediator* mediator;
 
 public:
 	MainEntry();

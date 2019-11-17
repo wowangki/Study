@@ -31,8 +31,8 @@ HRESULT ButtonModule::CreateButton(string nickName, float x, float y, string typ
 bool ButtonModule::IsClick(void)
 {
 	if (!IsInRect()) { direction = UP; return false; }
-	if (_KEY->StayKeyDown(VK_LBUTTON)) direction = DOWN;
-	if (_KEY->IsKeyUp(VK_LBUTTON) && direction == DOWN) {
+	if (_KEYCODE->StayKeyDown(VK_LBUTTON)) direction = DOWN;
+	if (_KEYCODE->IsKeyUp(VK_LBUTTON) && direction == DOWN) {
 		direction = UP;
 		return true;
 	}

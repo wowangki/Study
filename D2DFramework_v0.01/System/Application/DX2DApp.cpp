@@ -99,7 +99,7 @@ void DX2DApp::BeginDraw(void)
 	if (pRenderTarget) {
 		pRenderTarget->BeginDraw();
 		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-		pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+		pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Gray));
 	}
 }
 

@@ -1,0 +1,12 @@
+if (!isColl) {
+
+		//object->OnCollisonEnter()
+		// => Interface ICollision Func Call
+		//isColl = true;
+	}
+	else {
+		//object->OnCollisonStay()
+		//object->OnCollisonExit()
+		// => Interface ICollision Func Call
+		//isColl = false;
+	}
