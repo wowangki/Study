@@ -68,6 +68,7 @@ extern POINT	AppMouse;
 using namespace nString;
 using namespace nRadian;
 using namespace nFigure;
+using namespace nErrorFind;
 
 #include "../Utill/CollisionHelper.h"
 using namespace nCollision;

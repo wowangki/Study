@@ -1,12 +1,11 @@
-if (!isColl) {
+#1
+collider = new Collider(this)
+AddComponent(collider)
 
-		//object->OnCollisonEnter()
-		// => Interface ICollision Func Call
-		//isColl = true;
-	}
-	else {
-		//object->OnCollisonStay()
-		//object->OnCollisonExit()
-		// => Interface ICollision Func Call
-		//isColl = false;
-	}
+#2
+GameObejct* obj;
+obj->AddComponent<Collider>(new Collider);
+
+#3 - > ÀÌ°Å·Î
+GameObject* obj
+obj->AddComponent<Collider>();

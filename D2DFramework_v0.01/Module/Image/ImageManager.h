@@ -1,8 +1,8 @@
 #pragma once
 #include "../SingletonBase.h"
 #include <map>
-#include "ImageModule.h"
 
+class ImageModule;
 class ImageManager : public SingletonBase<ImageManager>
 {
 private:

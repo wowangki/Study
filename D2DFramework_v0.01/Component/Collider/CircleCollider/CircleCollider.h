@@ -1,18 +1,23 @@
+//====================== 2019.11.17 ========================//
+//================== MADE BY KIM WANKI =====================//
+//================== CIRCLE COLLIDER =======================//
+
 #pragma once
 #include "../Collider.h"
 
+class ICollision;
 class CircleCollider final : public Collider
 {
 private:
-	D2D1_ELLIPSE figure;
+	ICollision* myObject;		//COLLISION INTERFACE
+	D2D1_ELLIPSE figure;		//FIGURE
 
 public:
 	CircleCollider();
-	explicit CircleCollider(Transform* transform, PIVOT pivot = PIVOT_LT, bool isColl = false);
-	explicit CircleCollider(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT_LT, bool isColl = false);
+	explicit CircleCollider(ICollision* myObject);
 	~CircleCollider();
 
-	virtual void Init(void) override;
+	virtual HRESULT Init(void) override;
 	virtual void Release(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;

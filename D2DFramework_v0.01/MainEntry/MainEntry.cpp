@@ -16,7 +16,6 @@ MainEntry::~MainEntry()
 HRESULT MainEntry::Init(void)
 {
 
-
 	return S_OK;
 }
 

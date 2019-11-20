@@ -1,4 +1,6 @@
 #pragma once
+
+class Transform;
 class ImageModule
 {
 public:
@@ -63,6 +65,17 @@ public:
 
 	void UiFrameRender(float x, float y, int cfX, int cfY, float scaleX, float scaleY, float opacity = 1.0f);
 
+//Render by Transform 2019.11.21 ==============================================//
+public:
+	void Render(Transform* transform, float opacity = 1.0f);
+	void FrameRender(Transform* transform, D2D_POINT_2L frame, bool isReverse, float opacity = 1.0f);
+	void EffectFrameRender(Transform* transform, D2D_POINT_2L frame, float opacity = 1.0f);
+	void UIFrameRender(Transform* transform, D2D_POINT_2L frame, float opacity = 1.0f);
+
+private:
+	D2D_POINT_2F GetDxPoint(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot);
+
+//=============================================================================//
 
 // Getter & Setter
 public:

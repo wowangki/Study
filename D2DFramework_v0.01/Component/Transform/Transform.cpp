@@ -7,8 +7,13 @@ Transform::Transform()
 {
 }
 
-Transform::Transform(D2D_POINT_2F pos, D2D_SIZE_F size, float angle)
-	:pos(pos), size(size), angle(angle)
+Transform::Transform(GameObject * myObject)
+	: myObject(myObject)
+{
+}
+
+Transform::Transform(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
+	:pos(pos), size(size), pivot(pivot), angle(angle)
 {
 }
 

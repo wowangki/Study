@@ -1,3 +1,8 @@
+//====================== 2019.11.17 ========================//
+//================== MADE BY KIM WANKI =====================//
+//================== COLLISION HELPER ======================//
+
+
 #include "stdafx.h"
 #include "CollisionHelper.h"
 
@@ -20,7 +25,7 @@ namespace nCollision {
 		return false;
 	}
 
-	bool IsInCirPoint(D2D_POINT_2F point, D2D1_ELLIPSE cir)
+	bool IsInCirPoint(D2D1_ELLIPSE cir, D2D_POINT_2F point)
 	{
 		float dx = cir.point.x - point.x;
 		float dy = cir.point.y - point.y;
@@ -50,10 +55,10 @@ namespace nCollision {
 				return true;
 		}
 		else {
-			if (IsInCirPoint({ rect.left, rect.top }, cir))return true;
-			if (IsInCirPoint({ rect.left, rect.bottom }, cir)) return true;
-			if (IsInCirPoint({ rect.right, rect.top }, cir)) return true;
-			if (IsInCirPoint({ rect.right, rect.bottom }, cir)) return true;
+			if (IsInCirPoint(cir, { rect.left, rect.top } ))return true;
+			if (IsInCirPoint(cir, { rect.left, rect.bottom } )) return true;
+			if (IsInCirPoint(cir, { rect.right, rect.top } )) return true;
+			if (IsInCirPoint(cir, { rect.right, rect.bottom } )) return true;
 		}
 
 		return false;

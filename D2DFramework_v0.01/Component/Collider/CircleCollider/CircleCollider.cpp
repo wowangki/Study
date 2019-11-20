@@ -2,34 +2,31 @@
 #include "CircleCollider.h"
 #include "../Component/Transform/Transform.h"
 #include "../RectCollider/RectCollider.h"
+#include "../Interface/Collision/ICollision.h"
 
 CircleCollider::CircleCollider()
 {
 }
 
-CircleCollider::CircleCollider(Transform * transform, PIVOT pivot, bool isColl)
+CircleCollider::CircleCollider(ICollision * myObject)
 {
-	this->transform = transform;
-	this->pivot = pivot;
-	this->isColl = isColl;
-
-	figure = MakeCircle(transform->GetPos(), transform->GetSize());
-}
-
-CircleCollider::CircleCollider(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, bool isColl)
-{
-	transform = new Transform(pos, size);
-	this->pivot = pivot;
-	this->isColl = isColl;
-	figure = MakeCircle(transform->GetPos(), transform->GetSize());
+	this->myObject = myObject;
+	this->isColl = false;
 }
 
 CircleCollider::~CircleCollider()
 {
 }
 
-void CircleCollider::Init(void)
+HRESULT CircleCollider::Init(void)
 {
+	if (FAILED(PopErrorBox(transform))) {
+		Release();
+		return E_FAIL;
+	}
+
+	figure = MakeCircle(transform->GetPos(), transform->GetSize());
+	return S_OK;
 }
 
 void CircleCollider::Release(void)
@@ -62,16 +59,16 @@ void CircleCollider::IsCollision(Collider * col)
 	if (hasColl) {
 		if (!isColl) {
 			isColl = true;
-			//myObject->IsOnCollisionEnter(col);
+			myObject->OnCollisionEnter(col);
 		}
 		else {
-			//myObject->IsCollisionStay(col);
+			myObject->OnCollisionStay(col);
 		}
 	}
 	else {
 		if (!isColl) return;
 		else {
-			//myObject->IsOnCollisionEnd(col);
+			myObject->OnCollisionEnd(col);
 		}
 	}
 }

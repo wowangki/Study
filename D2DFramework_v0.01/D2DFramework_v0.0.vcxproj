@@ -141,6 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Animation\Animate\Animate.h" />
+    <ClInclude Include="GameObject\Actor\Actor.h" />
+    <ClInclude Include="Interface\Collision\ICollision.h" />
+    <ClInclude Include="Interface\Command\ICommand.h" />
+    <ClInclude Include="Interface\State\IState.h" />
+    <ClInclude Include="Interface\UI\IUI.h" />
+    <ClInclude Include="Component\Collider\UICollider\UICollider.h" />
+    <ClInclude Include="GameObject\UI\UI.h" />
+    <ClInclude Include="Utill\CapsuleF.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Utill\CollisionHelper.h" />
     <ClInclude Include="Component\Collider\CircleCollider\CircleCollider.h">
@@ -152,10 +161,16 @@
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="MainEntry\MainEntry.h" />
     <ClInclude Include="Module\Brush\BrushModule.h" />
-    <ClInclude Include="Module\Button\ButtonModule.h" />
+    <ClInclude Include="Module\Button\ButtonModule.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Module\Camera\CameraModule.h" />
-    <ClInclude Include="Module\Effect\Effect.h" />
-    <ClInclude Include="Module\Effect\EffectModule.h" />
+    <ClInclude Include="Module\Effect\Effect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Module\Effect\EffectModule.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Module\Font\FontManager.h" />
     <ClInclude Include="Module\Image\ImageManager.h" />
     <ClInclude Include="Module\Image\ImageModule.h" />
@@ -177,7 +192,11 @@
     <ClInclude Include="Utill\Utillity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Animation\Animate\Animate.cpp" />
+    <ClCompile Include="GameObject\Actor\Actor.cpp" />
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\Collider\UICollider\UICollider.cpp" />
+    <ClCompile Include="GameObject\UI\UI.cpp" />
     <ClCompile Include="Utill\CollisionHelper.cpp" />
     <ClCompile Include="Component\Collider\CircleCollider\CircleCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -188,10 +207,16 @@
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="MainEntry\MainEntry.cpp" />
     <ClCompile Include="Module\Brush\BrushModule.cpp" />
-    <ClCompile Include="Module\Button\ButtonModule.cpp" />
+    <ClCompile Include="Module\Button\ButtonModule.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Module\Camera\CameraModule.cpp" />
-    <ClCompile Include="Module\Effect\Effect.cpp" />
-    <ClCompile Include="Module\Effect\EffectModule.cpp" />
+    <ClCompile Include="Module\Effect\Effect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Module\Effect\EffectModule.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Module\Font\FontManager.cpp" />
     <ClCompile Include="Module\Image\ImageManager.cpp" />
     <ClCompile Include="Module\Image\ImageModule.cpp" />

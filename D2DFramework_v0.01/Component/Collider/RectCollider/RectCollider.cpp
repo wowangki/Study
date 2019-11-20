@@ -2,37 +2,32 @@
 #include "RectCollider.h"
 #include "../Component/Transform/Transform.h"
 #include "../CircleCollider/CircleCollider.h"
-#include "../GameObject/GameObject.h"
+#include "../Interface/Collision/ICollision.h"
 
 RectCollider::RectCollider()
 {
 }
 
-RectCollider::RectCollider(Transform * transform, PIVOT pivot, bool isColl)
+RectCollider::RectCollider(ICollision * myObject)
 {
-	this->transform = transform;
-	this->pivot = pivot;
-	this->isColl = isColl;
-
-	figure = MakeRect(transform->GetPos(), transform->GetSize(), this->pivot);
+	this->myObject = myObject;
+	this->isColl = false;
 }
-
-RectCollider::RectCollider(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, bool isColl)
-{
-	transform = new Transform(pos, size);
-	this->pivot = pivot;
-	this->isColl = isColl;
-
-	figure = MakeRect(transform->GetPos(), transform->GetSize(), this->pivot);
-}
-
 
 RectCollider::~RectCollider()
 {
 }
 
-void RectCollider::Init(void)
+HRESULT RectCollider::Init(void)
 {
+	if (FAILED(PopErrorBox(transform))) {
+		Release();
+		return E_FAIL;
+	}
+
+	figure = MakeRect(transform->GetPos(), transform->GetSize(), transform->GetPivot());
+
+	return S_OK;
 }
 
 void RectCollider::Release(void)
@@ -42,7 +37,7 @@ void RectCollider::Release(void)
 
 void RectCollider::Update(void)
 {
-	figure = MakeRect(transform->GetPos(), transform->GetSize(), this->pivot);
+	figure = MakeRect(transform->GetPos(), transform->GetSize(), transform->GetPivot());
 }
 
 void RectCollider::Render(void)
@@ -65,16 +60,16 @@ void RectCollider::IsCollision(Collider * col)
 	if (hasColl) {
 		if (!isColl) {
 			isColl = true;
-			//myObject->IsOnCollisionEnter(col);
+			myObject->OnCollisionEnter(col);
 		}
 		else {
-			//myObject->IsCollisionStay(col);
+			myObject->OnCollisionStay(col);
 		}
 	}
 	else {
 		if (!isColl) return;
 		else {
-			//myObject->IsOnCollisionEnd(col);
+			myObject->OnCollisionEnd(col);
 		}
 	}
 }

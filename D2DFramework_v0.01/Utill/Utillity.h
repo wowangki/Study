@@ -1,4 +1,5 @@
 #pragma once
+#include "CapsuleF.h"
 #define PI (float) 3.14159265359f
 
 //FigureMake
@@ -51,9 +52,25 @@ namespace nFigure {
 		}
 	}
 
+	inline D2D1_ROUNDED_RECT MakeRoundRect(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT::PIVOT_LT, float radiusX = 0, float radiusY = 0) {
+
+		return RoundedRect(MakeRect(pos, size, pivot), radiusX, radiusY);
+	}
+
 	inline D2D1_ELLIPSE MakeCircle(D2D_POINT_2F pos, D2D_SIZE_F size) {
 		return Ellipse(pos, size.width, size.height);
 	}
+
+	//inline CapsuleF MakeCapsule(D2D_POINT_2F pos, D2D_SIZE_F size) {
+	//	
+	//	D2D_RECT_F rc = MakeRect(pos, size, PIVOT_CC);
+	//	D2D1_ELLIPSE cir[2];
+	//
+	//	cir[0] = MakeCircle({ pos.x, pos.y - size.height * 0.5f }, { size.width, size.width });
+	//	cir[1] = MakeCircle({ pos.x, pos.y + size.height * 0.5f }, { size.width, size.width });
+	//
+	//	return Capsule(rc, cir);
+	//}
 }
 
 // String
@@ -83,4 +100,24 @@ namespace nRadian {
 	inline float DegreeToRadian(float degree) {
 		return degree * (PI / 180.0f);
 	}
+}
+
+//====================== 2019.11.21 ========================//
+//================== MADE BY KIM WANKI =====================//
+//================== ERRORFINDMETHOD =======================//
+
+namespace nErrorFind {
+
+	template<typename T>
+	HRESULT PopErrorBox(T* ptr) {
+		if (!ptr) {
+			TCHAR errorStr[256];
+			WCHAR errorText[] = L"초기화에 실패 했습니다.\nClassName: %s";
+			_stprintf_s(errorStr, errorText, typeid(ptr).name());
+			MessageBox(AppDesc._hWnd, errorStr, NULL, MB_OK);
+			return E_FAIL;
+		}
+		return S_OK;
+	}
+
 }

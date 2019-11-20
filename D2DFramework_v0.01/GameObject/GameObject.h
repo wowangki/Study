@@ -1,12 +1,21 @@
+//====================== 2019.11.17 ========================//
+//================== MADE BY KIM WANKI =====================//
+//================== GAME OBJECT ===========================//
+
 #pragma once
+#include <vector>
 
 enum class OBJECT_MODE { DEFAULT, INGAME, TOOLSET };
 enum class LAYER { DEFAULT, PLAYER, ENEMY, UI, MAPOBJECT };
 
+class Component;
 class Transform;
 class Collider;
 class GameObject
 {
+protected:
+	vector<Component*> vComponent;
+
 protected:
 	//Unique
 	string name;		// OBJECT NAME
@@ -38,11 +47,26 @@ protected:
 	SoundModule* sound; // SOUND
 
 public:
-	GameObject();
-	~GameObject();
-	
+
+	virtual void Init(void) = 0;
+	virtual void Release(void) = 0;
+	virtual void Update(void) = 0;
+	virtual void Render(void) = 0;
+
 	inline virtual GameObject* Clone(void) = 0;
-	inline Transform* GetTransform(void) { return transform; }
-	inline Collider* GetCollider(void) { return collider; }
+	//inline Transform* GetTransform(void) { return transform; }
+	//inline Collider* GetCollider(void) { return collider; }
+	
+	template<typename T>
+	T* AddComponent(void) { 
+		if (FAILED(vComponent.emplace_back(new T(this)))) {
+			TCHAR errorStr[256];
+			_stprintf_s(errorStr, L"초기화에 실패 했습니다. \nClassName: %s", typeid(*this).name());
+			MessageBox(AppDesc._hWnd, errorStr, NULL, MB_OK);
+			return E_FAIL;
+		}
+
+		return vComponent[vComponent.size() - 1];
+	}
 };
 

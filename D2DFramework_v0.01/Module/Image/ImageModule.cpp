@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "ImageModule.h"
 
-
 ImageModule::ImageModule()
 	:imageInfo(nullptr)
 {
@@ -424,7 +423,7 @@ void ImageModule::UiFrameRender(float x, float y, int cfX, int cfY, float scaleX
 		x,
 		y,
 		x + scaleX,
-		y = scaleY
+		y + scaleY
 	);
 
 	//실제 이미지 사이즈

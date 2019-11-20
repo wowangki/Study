@@ -1,18 +1,23 @@
+//====================== 2019.11.17 ========================//
+//================== MADE BY KIM WANKI =====================//
+//================== RECT COLLIDER =========================//
+
 #pragma once
 #include "../Collider.h"
 
+class ICollision;
 class RectCollider final : public Collider
 {
 private:
-	D2D_RECT_F figure;
+	ICollision* myObject;		//COLLISION INTERFACE
+	D2D_RECT_F figure;			//FIGURE
 
 public:
 	RectCollider();
-	explicit RectCollider(Transform* transform, PIVOT pivot = PIVOT_LT, bool isColl = false);
-	explicit RectCollider(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT_LT, bool isColl = false);
+	explicit RectCollider(ICollision* myObject);
 	~RectCollider();
 
-	virtual void Init(void) override;
+	virtual HRESULT Init(void) override;
 	virtual void Release(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
