@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Animation\Animation.h" />
     <ClInclude Include="Component\Animation\Animate\Animate.h" />
     <ClInclude Include="GameObject\Actor\Actor.h" />
     <ClInclude Include="Interface\Collision\ICollision.h" />
@@ -192,11 +193,13 @@
     <ClInclude Include="Utill\Utillity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Animation\Animation.cpp" />
     <ClCompile Include="Component\Animation\Animate\Animate.cpp" />
     <ClCompile Include="GameObject\Actor\Actor.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Collider\UICollider\UICollider.cpp" />
     <ClCompile Include="GameObject\UI\UI.cpp" />
+    <ClCompile Include="Module\Image\ImageModule_Transform.cpp" />
     <ClCompile Include="Utill\CollisionHelper.cpp" />
     <ClCompile Include="Component\Collider\CircleCollider\CircleCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

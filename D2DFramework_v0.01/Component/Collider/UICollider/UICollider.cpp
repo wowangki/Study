@@ -83,10 +83,12 @@ void UICollider::IsCollision(void)
 
 	if (hasColl) {
 		if (_KEYCODE->IsKeyDown(VK_LBUTTON)) {
+			if (!downHandler) return;
 			isColl = true;
 			downHandler->OnPointDown(this);
 		}
 		else {
+			if (!dragHandler) return;
 			dragHandler->OnDragPointer(this);
 		}
 	}
@@ -94,6 +96,7 @@ void UICollider::IsCollision(void)
 		if (!isColl) return;
 		else {
 			if (_KEYCODE->IsKeyUp(VK_LBUTTON)) {
+				if (!upHandler) return;
 				upHandler->OnPointUp(this);
 			}
 		}
