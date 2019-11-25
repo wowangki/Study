@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{1337E5BE-3CB8-456F-8C01-FC5A2341841C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Puzzle</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>./D2DFramework_v0.0006/System</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="D2DFramework_v0.0006\Component\Animation\Animate\Animate.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Animation\Animation.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Collider\CircleCollider\CircleCollider.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Collider\Collider.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Collider\RectCollider\RectCollider.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Collider\UICollider\UICollider.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Component.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Navigator\Navigator.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Transform\Transform.h" />
+    <ClInclude Include="D2DFramework_v0.0006\GameObject\Actor\Actor.h" />
+    <ClInclude Include="D2DFramework_v0.0006\GameObject\GameObject.h" />
+    <ClInclude Include="D2DFramework_v0.0006\GameObject\Map\Map.h" />
+    <ClInclude Include="D2DFramework_v0.0006\GameObject\Map\Tile\Tile.h" />
+    <ClInclude Include="D2DFramework_v0.0006\GameObject\UI\UI.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Interface\Collision\ICollision.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Interface\Command\ICommand.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Interface\Controller\Controller.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Interface\State\IState.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Interface\State\Move\MoveState.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Interface\UI\IUI.h" />
+    <ClInclude Include="D2DFramework_v0.0006\MainEntry\MainEntry.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Manager\Collision\Moveable\MCollMgr.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Manager\Collision\UnMoveable\UMCollMgr.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Manager\GameObject\GameObjectManager.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Brush\BrushModule.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Camera\CameraModule.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Font\FontManager.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Image\ImageManager.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Image\ImageModule.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Key\KeyModule.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Scene\SceneManager.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\SingletonBase.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod.hpp" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod_codec.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod_dsp.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod_errors.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod_memoryinfo.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\fmod\fmod_output.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Sound\SoundModule.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Module\Timer\TimerModule.h" />
+    <ClInclude Include="D2DFramework_v0.0006\System\Application\cApplication.h" />
+    <ClInclude Include="D2DFramework_v0.0006\System\Application\DX2DApp.h" />
+    <ClInclude Include="D2DFramework_v0.0006\System\DefineHeader.h" />
+    <ClInclude Include="D2DFramework_v0.0006\System\stdafx.h" />
+    <ClInclude Include="D2DFramework_v0.0006\System\targetver.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Utill\CapsuleF.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Utill\CollisionHelper.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Utill\SingletonHeader.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Utill\Utillity.h" />
+    <ClInclude Include="D2DFramework_v0.0006\Component\Grid\GridMap.h" />
+    <ClInclude Include="Puzzle\PuzzleEntry\PuzzleEntry.h" />
+    <ClInclude Include="Puzzle\PuzzleMap\PuzzleMap.h" />
+    <ClInclude Include="Puzzle\Piece\Piece.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D2DFramework_v0.0006\Component\Animation\Animate\Animate.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Animation\Animation.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Collider\CircleCollider\CircleCollider.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Collider\Collider.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Collider\RectCollider\RectCollider.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Collider\UICollider\UICollider.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Component.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Navigator\Navigator.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Transform\Transform.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\GameObject\Actor\Actor.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\GameObject\GameObject.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\GameObject\Map\Map.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\GameObject\Map\Tile\Tile.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\GameObject\UI\UI.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Interface\Controller\Controller.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Interface\State\Move\MoveState.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\MainEntry\MainEntry.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Manager\Collision\Moveable\MCollMgr.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Manager\Collision\UnMoveable\UMCollMgr.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Manager\GameObject\GameObjectManager.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Brush\BrushModule.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Camera\CameraModule.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Font\FontManager.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Image\ImageManager.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Image\ImageModule.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Image\ImageModule_Transform.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Key\KeyModule.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Scene\SceneManager.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Sound\SoundModule.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Module\Timer\TimerModule.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\System\Application\cApplication.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\System\Application\DX2DApp.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\System\Application\winMain.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\System\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="D2DFramework_v0.0006\Utill\CollisionHelper.cpp" />
+    <ClCompile Include="D2DFramework_v0.0006\Component\Grid\GridMap.cpp" />
+    <ClCompile Include="Puzzle\PuzzleEntry\PuzzleEntry.cpp" />
+    <ClCompile Include="Puzzle\PuzzleMap\PuzzleMap.cpp" />
+    <ClCompile Include="Puzzle\Piece\Piece.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

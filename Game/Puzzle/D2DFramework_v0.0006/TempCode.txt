@@ -1,0 +1,120 @@
+============================================ 19.11.21 =============================================
+#1
+collider = new Collider(this)
+AddComponent(collider)
+
+#2
+GameObejct* obj;
+obj->AddComponent<Collider>(new Collider);
+
+#3 - > 이거로
+GameObject* obj
+obj->AddComponent<Collider>();
+
+#4 ImageModule.h
+- Transform에 따라 Render 하는 함수 작성
+- GetDxPoint함수는 private로 다른데서 사용 못하도록함
+  해당 함수는 FrameRender할 때 이미지 돌리거나 반전 시킬때 기준점을
+  Pivot에 따라 다르게 되므로 중앙에 맞추도록 함
+
+#5 Collider.h / RectCollider.h / CircleCollider.h / UICollider.h
+
+Collider.h
+- Chaining Setting 함수 작성해서 생성할 때 Chaining으로 값 설정할 수 있게 작성
+
+RectCollider.h / CircleCollider.h
+- GameObject 포인터를 받는게 아니고 ICollision을 상속받은 클래스의 포인터를 받아서
+쓰도록 변경
+
+UICollider.h
+- UI에서만 사용하는 Collider 작성
+- UIClass에 따라서 마우스로 누를 때, 드래그 할 때, 마우스를 뗄때에 따라
+사용할 인터페이스를 상속받은 아이들 별로 포인터를 받도록 함
+- 중간에 인터페이스 없으면 해당 조건에서 사용 하지 않도록함
+- enum 문으로 UI 타입에 따라 RECT로 쓸건지 ELLIPSE로 쓸건지 결정
+
+===================================================================================================
+
+============================================ 19.11.23 =============================================
+#1. ImageModule.h
+- 다른 함수 다 없애고 Transform만 받도록 할것인가 아님 걍 냅두고 쓸건가
+
+#2. GameObject.h
+- 나중에 vector만 남겨서 vector로 컴포넌트 관리할 것
+
+※ 고려사항
+- vector로 할건지 map으로 할건지 고민중 (map으로 하면 key값 뭘로 할건지)
+- template함수로 만들어서 가져와도 괜찮을거같은 생각
+
+#3. Animate.h / Animation.h
+Animate.h
+- FrameImage 돌리는 클래스
+- 이 클래스는 Component로 할당 안할듯? (사실 고민중)
+
+Animation.h
+- Animate 관리할 클래스
+- Index에 따라 해당 Animate만 돌릴 거임
+
+※ 고려 사항
+- 상태 (모션)에 따라서 Animation 인덱스 설정하는 것 고려중
+- 그래서 key값에 따라 찾을지 index를 받아서 쓸지 고민중
+- map으로 하면 key값을 뭘로 할건지, index로 하면 어떻게 넣을지 고민중
+
+======================================== 진행 예정 사항 =============================================
+#1. Animation
+- Animate : FrameImage를 위한 클래스 (프레임 감기, 프레임 초기화)
+- Animation (Component) : Animate 모음 -> 오브젝트에서 사용할 이미지 모음
+- enum <-> int 로
+
+#2. IState와 Animation과의 관계
+- IState를 상속 받은 클래스들 (상태들)에 따라 Animation을 출력함
+- IState를 vector index 또는 map key에 따라 Animation에 저장된 Animate를 사용
+- IState에 따라 enum 변수를 호출하던가 enum 인덱스를 전달하던가
+
+#3. 충돌, 탐색 알고리즘
+- 일정 범위내에 있는 오브젝트끼리만 충돌처리
+- A가 B에 대한 충돌처리를 했다면 B는 A에 대해 충돌처리를 하지 않는다.
+- 이진 탐색기반으로 오브젝트 찾기
+- 트리 구조로 오브젝트들 정렬
+- 쿼드 트리 구조
+
+
+if(_KEYCODE->IsStayKey(VK_LEFT)){
+	pos.x -= speed;
+}
+
+===================================================================================================
+
+============================================ 19.11.25 =============================================
+#1. GameObject 수정
+1) AddComponent 수정 (완료)
+- dynamic_cast로 찾기
+
+2) 
+
+#2. Animate 수정
+1) 프레임 감는 함수 수정 (완료)
+- _TIMER->UpdateTime() 함수 참고하여 수정
+
+#3. Collider 수정
+1) 통과 불가하게 만들기 (완료)
+- 충돌 시 오브젝트끼리 통과 불가하게 만들기
+- 함수 추가 : Collider 간의 거리측정해서 맞닿아 있을 때보다 작으면 부딪힌 물체 들어온 거리만큼 재이동
+- Transform : Translate 함수 추가
+
+2) Trigger 만들기 (추후에)
+- 충돌해도 오브젝트끼리 통과 가능
+- 특정행위시에 해당 행위 실행
+
+#4. 충돌검출함수
+
+1) 정적오브젝트 검출클래스
+- Actor가 가지고 있을거임 (Component)
+- 자신의 위치에서 3x3위치의 정적 오브젝트 검출 (Tile)
+- MapObject는 동적오브젝트에 포함시키든 따로 빼서 검출
+
+2) 동적오브젝트 검출클래스
+- 모든 물체 검출 (첫번째 방식)
+- 특정 행위시에만 오브젝트 검출 (두번째 방식)
+
+===================================================================================================
