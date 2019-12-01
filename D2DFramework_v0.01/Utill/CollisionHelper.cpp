@@ -103,22 +103,13 @@ namespace nCollision {
 //====================== 2019.12.01 ========================//
 //================== MADE BY KIM WANKI =====================//
 //============= OVERLAPSIZE (Rect to Rect) =================//
-	D2D_SIZE_F GetOverlapSize(D2D_RECT_F from, D2D_RECT_F to)
+	D2D_POINT_2F GetOverlapSize(D2D_RECT_F from, D2D_RECT_F to)
 	{
-		D2D_SIZE_F temp = { 0.0 };
+		D2D_POINT_2F temp = { 0.0 };
 		if (!IsInRect(from, to)) return temp;
 		
-		D2D_POINT_2F tPos1;
-		tPos1.x = (from.right + from.left) * 0.5f;
-		tPos1.y = (from.top + from.bottom) * 0.5f;
-		D2D_POINT_2F tPos2;
-		tPos2.x = (to.right + to.left) * 0.5f;
-		tPos2.y = (to.top + to.bottom) * 0.5f;
-
-		float angle = GetAngle(tPos1, tPos2);
-
-		temp.width = (max(from.left, to.left) - min(from.right, to.right)) * cos(angle);
-		temp.height = (max(from.top, to.top) - min(from.bottom, to.bottom)) * sin(angle);
+		temp.x = (min(from.right, to.right) - max(from.left, to.left));
+		temp.y = (min(from.bottom, to.bottom) - max(from.top, to.top));
 
 		return temp;
 	}
@@ -126,9 +117,9 @@ namespace nCollision {
 //====================== 2019.12.01 ========================//
 //================== MADE BY KIM WANKI =====================//
 //============ OVERLAPSIZE (Rect to Circle) ================//
-	D2D_SIZE_F GetOverlapSize(D2D_RECT_F rect, D2D1_ELLIPSE cir)
+	D2D_POINT_2F GetOverlapSize(D2D_RECT_F rect, D2D1_ELLIPSE cir)
 	{
-		D2D_SIZE_F temp = { 0.0 };
+		D2D_POINT_2F temp = { 0.0 };
 		if (!IsRectInCircle(rect, cir)) return temp;
 
 
@@ -138,9 +129,9 @@ namespace nCollision {
 //====================== 2019.12.01 ========================//
 //================== MADE BY KIM WANKI =====================//
 //=========== OVERLAPSIZE (Circle to Circle) ===============//
-	D2D_SIZE_F GetOverlapSize(D2D1_ELLIPSE from, D2D1_ELLIPSE to)
+	D2D_POINT_2F GetOverlapSize(D2D1_ELLIPSE from, D2D1_ELLIPSE to)
 	{
-		D2D_SIZE_F temp = { 0.0 };
+		D2D_POINT_2F temp = { 0.0 };
 		if (!IsInCircle(from, to)) return temp;
 
 		float angle = GetAngle(from.point, to.point);
@@ -151,8 +142,8 @@ namespace nCollision {
 		float toCos = to.radiusX * cos(angle);
 		float toSin = to.radiusY * sin(angle);
 
-		temp.width = ((from.point.x - to.point.x)) + (fromCos + toCos);
-		temp.height = ((from.point.y - to.point.y)) + (fromSin + toSin);
+		temp.x = ((from.point.x - to.point.x)) + (fromCos + toCos);
+		temp.y = ((from.point.y - to.point.y)) + (fromSin + toSin);
 
 		return temp;
 	}

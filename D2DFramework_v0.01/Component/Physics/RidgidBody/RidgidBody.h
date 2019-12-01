@@ -33,8 +33,8 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
-	void Revision(void);
 	void IsCollision(Collider* other);
+	void Revision(void);
 	void GravityUpdate(void);
 	
 };
