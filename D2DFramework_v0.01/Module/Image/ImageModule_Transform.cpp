@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "ImageModule.h"
-#include "../Component/Transform/Transform.h"
+#include "../Component/Figure/Transform/Transform.h"
 
 
 void ImageModule::Render(Transform * transform, float opacity)
 {
-	D2D_POINT_2F pos = transform->GetPos();
+	D2D_POINT_2F pos = transform->GetWorldPos();
 	D2D_SIZE_F size = transform->GetSize();
 	PIVOT pivot = transform->GetPivot();
 
@@ -32,10 +32,10 @@ void ImageModule::Render(Transform * transform, float opacity)
 
 void ImageModule::FrameRender(Transform * transform, D2D_POINT_2L frame, bool isReverse, float opacity)
 {
-	D2D_POINT_2F pos = transform->GetPos();
+	D2D_POINT_2F pos = transform->GetWorldPos();
 	D2D_SIZE_F size = transform->GetSize();
 	PIVOT pivot = transform->GetPivot();
-	float degree = RadianToDegree(transform->GetAngle());
+	float degree = RadianToDegree(transform->GetWorldAngle());
 
 	if (imageInfo == nullptr) return;
 	if (size.width == 0.0f || size.height == 0.0f) {
@@ -76,7 +76,7 @@ void ImageModule::FrameRender(Transform * transform, D2D_POINT_2L frame, bool is
 
 void ImageModule::EffectFrameRender(Transform * transform, D2D_POINT_2L frame, float opacity)
 {
-	D2D_POINT_2F pos = transform->GetPos();
+	D2D_POINT_2F pos = transform->GetWorldPos();
 	D2D_SIZE_F size = transform->GetSize();
 	PIVOT pivot = transform->GetPivot();
 
@@ -102,7 +102,7 @@ void ImageModule::EffectFrameRender(Transform * transform, D2D_POINT_2L frame, f
 
 void ImageModule::UIFrameRender(Transform * transform, D2D_POINT_2L frame, float opacity)
 {
-	D2D_POINT_2F pos = transform->GetPos();
+	D2D_POINT_2F pos = transform->GetWorldPos();
 	D2D_SIZE_F size = transform->GetSize();
 	PIVOT pivot = transform->GetPivot();
 

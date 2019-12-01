@@ -4,8 +4,8 @@
 
 #pragma once
 
-class GameObject;
+class IState;
 class ICommand {
 public:
-	virtual void Excute(GameObject* actor) = 0;
+	virtual void Excute(IState* state) = 0;
 };

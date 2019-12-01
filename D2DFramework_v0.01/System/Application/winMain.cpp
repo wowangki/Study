@@ -46,12 +46,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 		else {
-			//_Timer->UpdateTIme();
+			_TIMER->UpdateTime();
 			MainClass->Update();
 
 			_Device->BeginDraw();
 			MainClass->Render();
-			//_Timer->RenderTime();
+			_TIMER->RenderTime();
 			_Device->EndDraw();
 		}
 	}

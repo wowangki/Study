@@ -1,5 +1,7 @@
 #pragma once
+#include "../Component/Component.h"
 
+class GameObject;
 class Transform;
 class ImageModule
 {

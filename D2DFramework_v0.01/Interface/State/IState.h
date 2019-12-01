@@ -4,8 +4,8 @@
 
 #pragma once
 
-class ICommand;
+class GameObject;
 class IState {
 public:
-	virtual void Update(ICommand* com) = 0;
+	virtual void Update(GameObject* object) = 0;
 };

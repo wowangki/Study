@@ -6,7 +6,6 @@ ImageModule::ImageModule()
 {
 }
 
-
 ImageModule::~ImageModule()
 {
 }

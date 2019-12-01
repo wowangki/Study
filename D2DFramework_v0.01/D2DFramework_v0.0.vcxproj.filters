@@ -63,12 +63,6 @@
     <ClInclude Include="Module\Font\FontManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Image\ImageManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Image\ImageModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Module\Key\KeyModule.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -81,31 +75,13 @@
     <ClInclude Include="GameObject\GameObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Transform\Transform.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Collider\Collider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Collider\RectCollider\RectCollider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Collider\ColliderManager\ColliderManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\GameObjectManager\GameObjectManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Collider\CircleCollider\CircleCollider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Utill\CollisionHelper.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Component\Component.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Utill\CapsuleF.h">
+    <ClInclude Include="Manager\GameObject\GameObjectManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Interface\Collision\ICollision.h">
@@ -114,25 +90,64 @@
     <ClInclude Include="Interface\Command\ICommand.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Interface\Controller\Controller.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\State\Move\MoveState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Interface\State\IState.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Interface\UI\IUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Collider\UICollider\UICollider.h">
+    <ClInclude Include="Manager\Collision\Moveable\MCollMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\Actor\Actor.h">
+    <ClInclude Include="Manager\Collision\UnMoveable\UMCollMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Algorithm\Navigator\Navigator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Graphic\Animation\Animate\Animate.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Graphic\Animation\Animation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Physics\Collider\CircleCollider\CircleCollider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Physics\Collider\RectCollider\RectCollider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Physics\Collider\UICollider\UICollider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Physics\Collider\Collider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Figure\Transform\Transform.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Image\ImageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Image\ImageModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Figure\Grid\Grid.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\UI\UI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Animation\Animate\Animate.h">
+    <ClInclude Include="Component\Physics\RidgidBody\RidgidBody.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Animation\Animation.h">
+    <ClInclude Include="GameObject\TestObject\TestObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -173,12 +188,6 @@
     <ClCompile Include="Module\Font\FontManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Image\ImageManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Image\ImageModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Module\Key\KeyModule.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -191,50 +200,75 @@
     <ClCompile Include="GameObject\GameObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Transform\Transform.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Collider\Collider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Collider\RectCollider\RectCollider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Collider\ColliderManager\ColliderManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\GameObjectManager\GameObjectManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Collider\CircleCollider\CircleCollider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Utill\CollisionHelper.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Component\Component.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Collider\UICollider\UICollider.cpp">
+    <ClCompile Include="Manager\GameObject\GameObjectManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\Actor\Actor.cpp">
+    <ClCompile Include="Interface\Controller\Controller.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\UI\UI.cpp">
+    <ClCompile Include="Interface\State\Move\MoveState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Animation\Animate\Animate.cpp">
+    <ClCompile Include="Manager\Collision\Moveable\MCollMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Collision\UnMoveable\UMCollMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Algorithm\Navigator\Navigator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Graphic\Animation\Animate\Animate.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Graphic\Animation\Animation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Physics\Collider\CircleCollider\CircleCollider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Physics\Collider\RectCollider\RectCollider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Physics\Collider\UICollider\UICollider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Physics\Collider\Collider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Figure\Transform\Transform.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Image\ImageManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Image\ImageModule.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Module\Image\ImageModule_Transform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Animation\Animation.cpp">
+    <ClCompile Include="Component\Figure\Grid\Grid.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\UI\UI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Physics\RidgidBody\RidgidBody.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\TestObject\TestObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="진행상황.txt" />
     <Text Include="TempCode.txt" />
   </ItemGroup>
 </Project>

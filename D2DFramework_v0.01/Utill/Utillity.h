@@ -1,5 +1,4 @@
 #pragma once
-#include "CapsuleF.h"
 #define PI (float) 3.14159265359f
 
 //FigureMake
@@ -61,16 +60,19 @@ namespace nFigure {
 		return Ellipse(pos, size.width, size.height);
 	}
 
-	//inline CapsuleF MakeCapsule(D2D_POINT_2F pos, D2D_SIZE_F size) {
-	//	
-	//	D2D_RECT_F rc = MakeRect(pos, size, PIVOT_CC);
-	//	D2D1_ELLIPSE cir[2];
-	//
-	//	cir[0] = MakeCircle({ pos.x, pos.y - size.height * 0.5f }, { size.width, size.width });
-	//	cir[1] = MakeCircle({ pos.x, pos.y + size.height * 0.5f }, { size.width, size.width });
-	//
-	//	return Capsule(rc, cir);
-	//}
+	inline D2D_POINT_2F VectorNormalized(D2D_POINT_2F pos) {
+		D2D_POINT_2F temp = { 0,0 };
+		
+		if (pos.x != 0) {
+			temp.x = pos.x / (sqrt(pow(pos.x, 2) + pow(pos.y, 2)));
+		}
+		
+		if (pos.y != 0) {
+			temp.y = pos.y / (sqrt(pow(pos.x, 2) + pow(pos.y, 2)));
+		}
+
+		return temp;
+	}
 }
 
 // String

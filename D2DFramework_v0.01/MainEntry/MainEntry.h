@@ -1,9 +1,12 @@
 #pragma once
 #include "../System/Application/cApplication.h"
 
-
+class GameObject;
 class MainEntry : public cApplication
 {
+private:
+	GameObject* t1;
+	GameObject* t2;
 
 public:
 	MainEntry();

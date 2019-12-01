@@ -1,11 +1,67 @@
-#1
-collider = new Collider(this)
-AddComponent(collider)
+//==================================== GameObject===========================================//
+	
+	template<typename T>
+	T* AddComponent(void) {
+		if (dynamic_cast<Component>(T)) {
+			vComponent.emplace_back(this);
+			return (T*)vComponent[vComponent.size() - 1];
+		}
+		else return nullptr;
+	}
 
-#2
-GameObejct* obj;
-obj->AddComponent<Collider>(new Collider);
+	template<typename T>
+	T* GetComponent(void) {
+		for (int i = 0; i < vComponent.size(); i++) {
+			if (dynamic_cast<T*>(vComponent[i])) {
+				return (T*)vComponent[i];
+			}
+		}
 
-#3 - > ÀÌ°Å·Î
-GameObject* obj
-obj->AddComponent<Collider>();
+		return nullptr;
+	}
+//================================== RectCollider =========================================//
+
+	if (!col) return;
+	bool hasColl;
+
+	if (typeid(*col) == typeid(RectCollider)) {
+		hasColl = IsInRect(figure, ((RectCollider*)col)->GetFigure());
+	}
+	else if (typeid(*col) == typeid(CircleCollider)) {
+		hasColl = IsRectInCircle(figure, ((CircleCollider*)col)->GetFigure());
+	}
+	
+	if (hasColl) {
+		col->GetTransform()->Translate(GetGapDistance(transform->GetWorldPos(), transform->GetSize(),
+													col->GetTransform()->GetWorldPos(), col->GetTransform()->GetSize()));
+
+		if (!isColl) {
+			isColl = true;
+			myObject->OnCollisionEnter(col);
+		}
+		else {
+			myObject->OnCollisionStay(col);
+		}
+	}
+	else {
+		if (!isColl) return;
+		else {
+			myObject->OnCollisionEnd(col);
+		}
+	}
+
+	//================================== Ridgedbody =========================================//
+	
+		D2D_POINT_2F tPos = GetGapDistance(transform->GetWorldPos(), transform->GetSize(),
+			temp->GetWorldPos(), temp->GetSize());
+
+		if (transform->GetRect().left <= temp->GetRect().right &&
+			transform->GetRect().right >= temp->GetRect().left) {
+
+			transform->Translate({ 0, tPos.y * sin(tAngle) });
+		}
+		
+		if (transform->GetRect().top <= temp->GetRect().bottom &&
+			transform->GetRect().bottom >= temp->GetRect().top) {
+			transform->Translate({ tPos.x * cos(tAngle), 0 });
+		}
