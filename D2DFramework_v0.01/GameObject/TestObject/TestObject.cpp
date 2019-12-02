@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TestObject.h"
 #include "../Component/Figure/Transform/Transform.h"
+#include "../Component/Physics/Collider/CircleCollider/CircleCollider.h"
 #include "../Component/Physics/RidgidBody/RidgidBody.h"
 
 TestObject::TestObject()
@@ -29,6 +30,7 @@ TestObject::~TestObject()
 
 HRESULT TestObject::Init(void)
 {
+	//AddComponent<CircleCollider>()->Init();
 	AddComponent<RidgidBody>()->Init(30.0f);
 
 	return S_OK;

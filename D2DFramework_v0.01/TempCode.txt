@@ -1,67 +1,28 @@
-//==================================== GameObject===========================================//
-	
-	template<typename T>
-	T* AddComponent(void) {
-		if (dynamic_cast<Component>(T)) {
-			vComponent.emplace_back(this);
-			return (T*)vComponent[vComponent.size() - 1];
-		}
-		else return nullptr;
-	}
+//================================== 타원의 충돌검출 =========================================//
+		bool IsInCircle(D2D1_ELLIPSE from, D2D1_ELLIPSE to)
+	{
+		float angle = GetAngle(from.point, to.point);
 
-	template<typename T>
-	T* GetComponent(void) {
-		for (int i = 0; i < vComponent.size(); i++) {
-			if (dynamic_cast<T*>(vComponent[i])) {
-				return (T*)vComponent[i];
-			}
-		}
+		float fromCos = from.radiusX * cosf(angle);
+		float fromSin = from.radiusY * sinf(angle);
 
-		return nullptr;
-	}
-//================================== RectCollider =========================================//
+		float toCos = to.radiusX * cosf(angle);
+		float toSin = to.radiusY * sinf(angle);
 
-	if (!col) return;
-	bool hasColl;
-
-	if (typeid(*col) == typeid(RectCollider)) {
-		hasColl = IsInRect(figure, ((RectCollider*)col)->GetFigure());
-	}
-	else if (typeid(*col) == typeid(CircleCollider)) {
-		hasColl = IsRectInCircle(figure, ((CircleCollider*)col)->GetFigure());
-	}
-	
-	if (hasColl) {
-		col->GetTransform()->Translate(GetGapDistance(transform->GetWorldPos(), transform->GetSize(),
-													col->GetTransform()->GetWorldPos(), col->GetTransform()->GetSize()));
-
-		if (!isColl) {
-			isColl = true;
-			myObject->OnCollisionEnter(col);
-		}
-		else {
-			myObject->OnCollisionStay(col);
-		}
-	}
-	else {
-		if (!isColl) return;
-		else {
-			myObject->OnCollisionEnd(col);
-		}
-	}
-
-	//================================== Ridgedbody =========================================//
-	
-		D2D_POINT_2F tPos = GetGapDistance(transform->GetWorldPos(), transform->GetSize(),
-			temp->GetWorldPos(), temp->GetSize());
-
-		if (transform->GetRect().left <= temp->GetRect().right &&
-			transform->GetRect().right >= temp->GetRect().left) {
-
-			transform->Translate({ 0, tPos.y * sin(tAngle) });
-		}
+		float result = sqrtf(pow(fromCos + toCos, 2) + pow(fromSin + toSin, 2));
 		
-		if (transform->GetRect().top <= temp->GetRect().bottom &&
-			transform->GetRect().bottom >= temp->GetRect().top) {
-			transform->Translate({ tPos.x * cos(tAngle), 0 });
-		}
+		if (GetDistance(from.point, to.point) <= result) return true;
+
+		return false;
+	}
+
+//================================== 원의 충돌검출 =========================================//	
+D2D1_ELLIPSE from;
+D2D1_ELLIPSE to;
+
+float distance = sqartf(pow(from.point.x + to.point.x, 2) + pow(from.point.y + to.point.y, 2));
+
+if(distance <= from.radiusX + to.radiusX ||
+   distance <= from.raidusY + to.radiusY) return true;
+
+※ 원은 radiusX와 radiusY가 같으므로 축약 가능

@@ -1,7 +1,6 @@
 #pragma once
 #include "../SingletonBase.h"
 #include <map>
-
 #pragma comment (lib, "Module/Sound/fmod/fmodex_vc.lib")
 #include "fmod/fmod.hpp"
 

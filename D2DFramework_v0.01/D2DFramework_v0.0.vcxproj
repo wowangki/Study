@@ -102,6 +102,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>./System</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -158,6 +159,8 @@
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\Physics\RidgidBody\RidgidBody.h" />
     <ClInclude Include="GameObject\TestObject\TestObject.h" />
+    <ClInclude Include="Module\Image\ImageManager.h" />
+    <ClInclude Include="Module\Image\ImageModule.h" />
     <ClInclude Include="Utill\CollisionHelper.h" />
     <ClInclude Include="Component\Physics\Collider\CircleCollider\CircleCollider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -167,19 +170,8 @@
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="MainEntry\MainEntry.h" />
     <ClInclude Include="Module\Brush\BrushModule.h" />
-    <ClInclude Include="Module\Button\ButtonModule.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Module\Camera\CameraModule.h" />
-    <ClInclude Include="Module\Effect\Effect.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Module\Effect\EffectModule.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Module\Font\FontManager.h" />
-    <ClInclude Include="Module\Image\ImageManager.h" />
-    <ClInclude Include="Module\Image\ImageModule.h" />
     <ClInclude Include="Module\Key\KeyModule.h" />
     <ClInclude Include="Module\Scene\SceneManager.h" />
     <ClInclude Include="Module\SingletonBase.h" />
@@ -206,12 +198,14 @@
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Physics\Collider\UICollider\UICollider.cpp" />
     <ClCompile Include="Manager\Collision\Moveable\MCollMgr.cpp" />
-    <ClCompile Include="Module\Image\ImageModule_Transform.cpp" />
     <ClCompile Include="Interface\State\Move\MoveState.cpp" />
     <ClCompile Include="Component\Algorithm\Navigator\Navigator.cpp" />
     <ClCompile Include="Manager\Collision\UnMoveable\UMCollMgr.cpp" />
     <ClCompile Include="Component\Physics\RidgidBody\RidgidBody.cpp" />
     <ClCompile Include="GameObject\TestObject\TestObject.cpp" />
+    <ClCompile Include="Module\Image\ImageManager.cpp" />
+    <ClCompile Include="Module\Image\ImageModule.cpp" />
+    <ClCompile Include="Module\Image\ImageModule_Transform.cpp" />
     <ClCompile Include="Utill\CollisionHelper.cpp" />
     <ClCompile Include="Component\Physics\Collider\CircleCollider\CircleCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -221,19 +215,8 @@
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="MainEntry\MainEntry.cpp" />
     <ClCompile Include="Module\Brush\BrushModule.cpp" />
-    <ClCompile Include="Module\Button\ButtonModule.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Module\Camera\CameraModule.cpp" />
-    <ClCompile Include="Module\Effect\Effect.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Module\Effect\EffectModule.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Module\Font\FontManager.cpp" />
-    <ClCompile Include="Module\Image\ImageManager.cpp" />
-    <ClCompile Include="Module\Image\ImageModule.cpp" />
     <ClCompile Include="Module\Key\KeyModule.cpp" />
     <ClCompile Include="Module\Scene\SceneManager.cpp" />
     <ClCompile Include="Module\Sound\SoundModule.cpp" />

@@ -48,16 +48,7 @@
     <ClInclude Include="Module\Brush\BrushModule.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Button\ButtonModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Module\Camera\CameraModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Effect\Effect.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Effect\EffectModule.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Module\Font\FontManager.h">
@@ -132,12 +123,6 @@
     <ClInclude Include="Component\Figure\Transform\Transform.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Image\ImageManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Image\ImageModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Figure\Grid\Grid.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -148,6 +133,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\TestObject\TestObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Image\ImageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Image\ImageModule.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -173,16 +164,7 @@
     <ClCompile Include="Module\Brush\BrushModule.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Button\ButtonModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Module\Camera\CameraModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Effect\Effect.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Effect\EffectModule.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Module\Font\FontManager.cpp">
@@ -245,15 +227,6 @@
     <ClCompile Include="Component\Figure\Transform\Transform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Image\ImageManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Image\ImageModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Image\ImageModule_Transform.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Figure\Grid\Grid.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -264,6 +237,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\TestObject\TestObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Image\ImageManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Image\ImageModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Image\ImageModule_Transform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

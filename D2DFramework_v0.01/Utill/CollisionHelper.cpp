@@ -55,10 +55,10 @@ namespace nCollision {
 				return true;
 		}
 		else {
-			if (IsInCirPoint(cir, { rect.left, rect.top } ))return true;
-			if (IsInCirPoint(cir, { rect.left, rect.bottom } )) return true;
-			if (IsInCirPoint(cir, { rect.right, rect.top } )) return true;
-			if (IsInCirPoint(cir, { rect.right, rect.bottom } )) return true;
+			if (IsInCirPoint(cir, { rect.left, rect.top }))return true;
+			if (IsInCirPoint(cir, { rect.left, rect.bottom })) return true;
+			if (IsInCirPoint(cir, { rect.right, rect.top })) return true;
+			if (IsInCirPoint(cir, { rect.right, rect.bottom })) return true;
 		}
 
 		return false;
@@ -67,13 +67,13 @@ namespace nCollision {
 	bool IsInCircle(D2D1_ELLIPSE from, D2D1_ELLIPSE to)
 	{
 		float angle = GetAngle(from.point, to.point);
-
-		float fromCos = from.radiusX * cos(angle);
-		float fromSin = from.radiusY * sin(angle);
-
-		float toCos = to.radiusX * cos(angle);
-		float toSin = to.radiusY * sin(angle);
-
+		
+		float fromCos = from.radiusX * cosf(angle);
+		float fromSin = from.radiusY * sinf(angle);
+		
+		float toCos = to.radiusX * cosf(angle);
+		float toSin = to.radiusY * sinf(angle);
+		
 		float result = sqrtf(pow(fromCos + toCos, 2) + pow(fromSin + toSin, 2));
 		
 		if (GetDistance(from.point, to.point) <= result) return true;
@@ -100,24 +100,24 @@ namespace nCollision {
 		return DegreeToRadian(angle);
 	}
 
-//====================== 2019.12.01 ========================//
-//================== MADE BY KIM WANKI =====================//
-//============= OVERLAPSIZE (Rect to Rect) =================//
-	D2D_POINT_2F GetOverlapSize(D2D_RECT_F from, D2D_RECT_F to)
+	//====================== 2019.12.01 ========================//
+	//================== MADE BY KIM WANKI =====================//
+	//============= OVERLAPSIZE (Rect to Rect) =================//
+	D2D_POINT_2F GetRevisionSize(D2D_RECT_F from, D2D_RECT_F to)
 	{
 		D2D_POINT_2F temp = { 0.0 };
 		if (!IsInRect(from, to)) return temp;
-		
+
 		temp.x = (min(from.right, to.right) - max(from.left, to.left));
 		temp.y = (min(from.bottom, to.bottom) - max(from.top, to.top));
 
 		return temp;
 	}
 
-//====================== 2019.12.01 ========================//
-//================== MADE BY KIM WANKI =====================//
-//============ OVERLAPSIZE (Rect to Circle) ================//
-	D2D_POINT_2F GetOverlapSize(D2D_RECT_F rect, D2D1_ELLIPSE cir)
+	//====================== 2019.12.01 ========================//
+	//================== MADE BY KIM WANKI =====================//
+	//============ OVERLAPSIZE (Rect to Circle) ================//
+	D2D_POINT_2F GetRevisionSize(D2D_RECT_F rect, D2D1_ELLIPSE cir)
 	{
 		D2D_POINT_2F temp = { 0.0 };
 		if (!IsRectInCircle(rect, cir)) return temp;
@@ -126,26 +126,28 @@ namespace nCollision {
 		return temp;
 	}
 
-//====================== 2019.12.01 ========================//
-//================== MADE BY KIM WANKI =====================//
-//=========== OVERLAPSIZE (Circle to Circle) ===============//
-	D2D_POINT_2F GetOverlapSize(D2D1_ELLIPSE from, D2D1_ELLIPSE to)
+	//====================== 2019.12.01 ========================//
+	//================== MADE BY KIM WANKI =====================//
+	//=========== OVERLAPSIZE (Circle to Circle) ===============//
+	D2D_POINT_2F GetRevisionSize(D2D1_ELLIPSE from, D2D1_ELLIPSE to)
 	{
 		D2D_POINT_2F temp = { 0.0 };
 		if (!IsInCircle(from, to)) return temp;
 
 		float angle = GetAngle(from.point, to.point);
-		
-		float fromCos = from.radiusX * cos(angle);
-		float fromSin = from.radiusY * sin(angle);
-		
-		float toCos = to.radiusX * cos(angle);
-		float toSin = to.radiusY * sin(angle);
+		float fromCos = from.radiusX * cosf(angle);
+		float fromSin = from.radiusY * sinf(angle);
 
-		temp.x = ((from.point.x - to.point.x)) + (fromCos + toCos);
-		temp.y = ((from.point.y - to.point.y)) + (fromSin + toSin);
+		float toCos = to.radiusX * cosf(angle);
+		float toSin = to.radiusY * sinf(angle);
+
+		float result = sqrtf(pow(fromCos + toCos, 2) + pow(fromSin + toSin, 2));
+
+		float distance = GetDistance(from.point, to.point);
+
+		temp.x = - ((result - distance) * cosf(angle));
+		temp.y = - ((result - distance) * sinf(angle));
 
 		return temp;
 	}
-
 }

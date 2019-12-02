@@ -18,9 +18,9 @@ private:
 	float mass;
 	float deltaTime;
 	bool useGravity;
-
 private:
 	list<Collider*> lOther;
+	Collider* denyG;
 
 public:
 	RidgidBody();

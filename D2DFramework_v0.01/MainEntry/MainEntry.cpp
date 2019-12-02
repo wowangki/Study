@@ -2,6 +2,7 @@
 #include "MainEntry.h"
 #include "../GameObject/TestObject/TestObject.h"
 #include "../Component/Physics/Collider/RectCollider/RectCollider.h"
+#include "../Component/Physics/Collider/CircleCollider/CircleCollider.h"
 #include "../Component/Figure/Transform/Transform.h"
 #include "../Component/Physics/RidgidBody/RidgidBody.h"
 
@@ -45,14 +46,15 @@ void MainEntry::Update(void)
 
 void MainEntry::Render(void)
 {
-	D2D_SIZE_F temp = GetOverlapSize(t1->GetComponent<Transform>()->GetRect(),
-									t2->GetComponent<Transform>()->GetRect());
-
+	D2D_POINT_2F temp = GetRevisionSize(t1->GetComponent<RectCollider>()->GetCollBox(),
+									t2->GetComponent<RectCollider>()->GetCollBox());
+	
 	WCHAR tString[256];
 	static TCHAR tTextString[] = L"WIDTH : %.2f\nHIGHT : %.2f\n";
-
-	_stprintf(tString, tTextString, temp.width, temp.height);
+	
+	_stprintf_s(tString, tTextString, temp.x, temp.y);
 	_FONT->Render(tString, RectF(200.0f, 0.0f, 400.0f, 100.0f));
+
 
 	t1->Render();
 	t2->Render();
