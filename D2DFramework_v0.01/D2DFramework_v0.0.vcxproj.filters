@@ -39,30 +39,6 @@
     <ClInclude Include="Utill\SingletonHeader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Module\SingletonBase.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Sound\SoundModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Brush\BrushModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Camera\CameraModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Font\FontManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Key\KeyModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Scene\SceneManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Timer\TimerModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject\GameObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -93,19 +69,7 @@
     <ClInclude Include="Interface\UI\IUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\Collision\Moveable\MCollMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\Collision\UnMoveable\UMCollMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Algorithm\Navigator\Navigator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Graphic\Animation\Animate\Animate.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Graphic\Animation\Animation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Component\Physics\Collider\CircleCollider\CircleCollider.h">
@@ -135,10 +99,49 @@
     <ClInclude Include="GameObject\TestObject\TestObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Image\ImageManager.h">
+    <ClInclude Include="Component\Algorithm\Search\SearchHandler\SearchHandler.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Image\ImageModule.h">
+    <ClInclude Include="Manager\Collision\CollisionManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Graphic\Image\Image.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Resource\Image\ImageInfo\ImageInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Resource\Image\ImageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\SingletonBase.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Key\KeyModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Scene\SceneManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Timer\TimerModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Camera\CameraModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Font\FontManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Brush\BrushModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Singleton\Resource\Sound\SoundModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Graphic\Image\Sprite.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Graphic\Animator\Animator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -156,27 +159,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MainEntry\MainEntry.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Sound\SoundModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Brush\BrushModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Camera\CameraModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Font\FontManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Key\KeyModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Scene\SceneManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Timer\TimerModule.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\GameObject.cpp">
@@ -197,19 +179,7 @@
     <ClCompile Include="Interface\State\Move\MoveState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\Collision\Moveable\MCollMgr.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\Collision\UnMoveable\UMCollMgr.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Algorithm\Navigator\Navigator.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Graphic\Animation\Animate\Animate.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Graphic\Animation\Animation.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Component\Physics\Collider\CircleCollider\CircleCollider.cpp">
@@ -239,13 +209,46 @@
     <ClCompile Include="GameObject\TestObject\TestObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Image\ImageManager.cpp">
+    <ClCompile Include="Component\Algorithm\Search\SearchHandler\SearchHandler.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Image\ImageModule.cpp">
+    <ClCompile Include="Manager\Collision\CollisionManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Image\ImageModule_Transform.cpp">
+    <ClCompile Include="Component\Graphic\Image\Image.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Resource\Image\ImageInfo\ImageInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Resource\Image\ImageManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Key\KeyModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Scene\SceneManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Timer\TimerModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Camera\CameraModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Font\FontManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Brush\BrushModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Singleton\Resource\Sound\SoundModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Graphic\Image\Sprite.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Graphic\Animator\Animator.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

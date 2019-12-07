@@ -3,6 +3,7 @@
 #include "../Component/Figure/Transform/Transform.h"
 #include "../Component/Physics/Collider/CircleCollider/CircleCollider.h"
 #include "../Component/Physics/RidgidBody/RidgidBody.h"
+#include "../Component/Graphic/Animator/Animator.h"
 
 TestObject::TestObject()
 {
@@ -21,6 +22,7 @@ TestObject::TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float ang
 	isControll = false;
 	speed = 5.0f;
 	AddComponent<Transform>()->Init(pos, size, pivot, angle);
+	state = 0;
 }
 
 
@@ -32,6 +34,7 @@ HRESULT TestObject::Init(void)
 {
 	//AddComponent<CircleCollider>()->Init();
 	AddComponent<RidgidBody>()->Init(30.0f);
+	AddComponent<Animator>()->AddSprite(state, "Test");
 
 	return S_OK;
 }

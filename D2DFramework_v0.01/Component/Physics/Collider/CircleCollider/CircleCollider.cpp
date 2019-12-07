@@ -4,6 +4,7 @@
 #include "../Component/Figure/Transform/Transform.h"
 #include "../RectCollider/RectCollider.h"
 #include "../Interface/Collision/ICollision.h"
+#include "../Manager/Collision/CollisionManager.h"
 
 CircleCollider::CircleCollider()
 {
@@ -12,6 +13,7 @@ CircleCollider::CircleCollider()
 CircleCollider::CircleCollider(GameObject * object)
 {
 	this->object = object;
+	//this->object->GetCollMgr()->AddCollider(this);
 	transform = new Transform(this->object);
 	this->isTrigger = false;
 	this->isColl = false;
@@ -57,11 +59,11 @@ void CircleCollider::IsCollision(Collider * col)
 
 	bool prevColl = isColl;
 
-	if (typeid(*col) == typeid(RectCollider)) {
-		isColl = IsRectInCircle(((RectCollider*)col)->GetCollBox(), collBox);
+	if (RectCollider* other = dynamic_cast<RectCollider*>(col)) {
+		isColl = IsRectInCircle(other->GetCollBox(), collBox);
 	}
-	else if (typeid(*col) == typeid(CircleCollider)) {
-		isColl = IsInCircle(collBox, ((CircleCollider*)col)->GetCollBox());
+	else if (CircleCollider* other = dynamic_cast<CircleCollider*>(col)) {
+		isColl = IsInCircle(collBox, other->GetCollBox());
 	}
 
 	if (isColl) {

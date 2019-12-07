@@ -1,28 +1,25 @@
 #pragma once
 
-#include "../Module/Brush/BrushModule.h"
+#include "../Manager/Singleton/Brush/BrushModule.h"
 #define _BRUSH BrushModule::GetInstance()
 
-#include "../Module/Font/FontManager.h"
+#include "../Manager/Singleton/Font/FontManager.h"
 #define _FONT FontManager::GetInstance()
 
-#include "../Module/Timer/TimerModule.h"
+#include "../Manager/Singleton/Timer/TimerModule.h"
 #define _TIMER TimerModule::GetInstance()
 
-#include "../Module/Key/KeyModule.h"
+#include "../Manager/Singleton/Key/KeyModule.h"
 #define _KEYCODE KeyModule::GetInstance()
 
-#include "../Module/Camera/CameraModule.h"
+#include "../Manager/Singleton/Camera/CameraModule.h"
 #define _CAMERA CameraModule::GetInstance()
 
-#include "../Module/Image/ImageManager.h"
+#include "../Manager/Singleton/Resource/Image/ImageManager.h"
 #define _IMAGE ImageManager::GetInstance()
 
-#include "../Module/Sound/SoundModule.h"
+#include "../Manager/Singleton/Resource/Sound/SoundModule.h"
 #define _SOUND SoundModule::GetInstance()
 
-#include "../Module/Scene/SceneManager.h"
+#include "../Manager/Singleton/Scene/SceneManager.h"
 #define _SCENE SceneManager::GetInstance()
-
-#include "../Module/Effect/EffectModule.h"
-#define _EFFECT EffectModule::GetInstance()

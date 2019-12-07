@@ -10,6 +10,7 @@ enum class OBJECT_MODE { DEFAULT, INGAME, TOOLSET };
 enum class LAYER { DEFAULT, PLAYER, ENEMY, MAP, UI, MAPOBJECT };
 
 class Component;
+class CollisionManager;
 class GameObject : public ICollision, ITrigger
 {
 protected:
@@ -17,9 +18,18 @@ protected:
 	typedef map<string, Component*>::iterator mIter;
 
 protected:
+	static int s_id;
+	int id;
+	string name;
+	string tag;
+
+	int state;
 	bool isActive;
 	OBJECT_MODE mode;
 	LAYER layer;
+
+protected:
+	CollisionManager* collMgr;
 
 public:
 	virtual HRESULT Init(void) = 0;
@@ -55,10 +65,18 @@ public:
 		return nullptr;
 	}
 
+	inline int GetID(void) { return id; }
+	inline string GetName(void) { return name; }
+	inline string GetTag(void) { return tag; }
+	inline int GetState(void) { return state; }
 	inline bool GetActive(void) { return isActive; }
 	inline OBJECT_MODE GetMode(void) { return mode; }
 	inline LAYER GetLayer(void) { return layer; }
+	inline CollisionManager* GetCollMgr(void) { return collMgr; }
 
+	void SetName(string name) { this->name = name; }
+	void SetTag(string tag) { this->tag = tag; }
+	void SetState(int state) { this->state = state; }
 	void SetActive(bool isActive) { this->isActive = isActive; }
 	void SetMode(OBJECT_MODE mode) { this->mode = mode; }
 	void SetLayer(LAYER layer) { this->layer = layer; }
@@ -75,4 +93,3 @@ public:
 	virtual void OnTriggerStay(Collider * coll) = 0;
 	virtual void OnTriggerEnd(Collider * coll) = 0;
 };
-

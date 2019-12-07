@@ -6,6 +6,7 @@ Transform::Transform()
 	:worldPos({ 0,0 }), localPos({ 0,0 }), size({ 0,0 }), pivot(PIVOT_LT), worldAngle(0.0f),
 	localAngle(0.0f), parent(this)
 {
+	this->object = nullptr;
 }
 
 Transform::Transform(GameObject * object)

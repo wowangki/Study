@@ -16,7 +16,6 @@ protected:
 	bool isColl;					//ISCOLLISION
 
 public:
-
 	virtual HRESULT Init(D2D_POINT_2F pos = { 0.0f,0.0f }, D2D_SIZE_F size = { 0.0f,0.0f }, PIVOT pivot = PIVOT_CC, float angle = 0.0f) = 0;
 	virtual void Release(void)	= 0;
 	virtual void Update(void)	= 0;

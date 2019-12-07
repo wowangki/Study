@@ -20,6 +20,8 @@ MainEntry::~MainEntry()
 
 HRESULT MainEntry::Init(void)
 {
+	_IMAGE->CreateImage("Test", "Resource/Image/Test.png", { 2,1 });
+
 	t1 = new TestObject({ WINSIZEX * 0.5f, WINSIZEY * 0.5f - 200.0f }, { 50,50 }, PIVOT_CC);
 	t2 = new TestObject({ WINSIZEX * 0.5f, WINSIZEY * 0.5f }, { 50,50 }, PIVOT_CC);;
 

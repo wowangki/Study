@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -142,8 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Component\Graphic\Animation\Animation.h" />
-    <ClInclude Include="Component\Graphic\Animation\Animate\Animate.h" />
+    <ClInclude Include="Component\Graphic\Animator\Animator.h" />
+    <ClInclude Include="Component\Graphic\Image\Sprite.h" />
+    <ClInclude Include="Component\Graphic\Image\Image.h" />
+    <ClInclude Include="Manager\Singleton\Resource\Image\ImageInfo\ImageInfo.h" />
+    <ClInclude Include="Manager\Collision\CollisionManager.h" />
     <ClInclude Include="Component\Figure\Grid\Grid.h" />
     <ClInclude Include="GameObject\UI\UI.h" />
     <ClInclude Include="Interface\Controller\Controller.h" />
@@ -154,13 +157,11 @@
     <ClInclude Include="Component\Physics\Collider\UICollider\UICollider.h" />
     <ClInclude Include="Interface\State\Move\MoveState.h" />
     <ClInclude Include="Component\Algorithm\Navigator\Navigator.h" />
-    <ClInclude Include="Manager\Collision\Moveable\MCollMgr.h" />
-    <ClInclude Include="Manager\Collision\UnMoveable\UMCollMgr.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\Physics\RidgidBody\RidgidBody.h" />
     <ClInclude Include="GameObject\TestObject\TestObject.h" />
-    <ClInclude Include="Module\Image\ImageManager.h" />
-    <ClInclude Include="Module\Image\ImageModule.h" />
+    <ClInclude Include="Manager\Singleton\Resource\Image\ImageManager.h" />
+    <ClInclude Include="Component\Algorithm\Search\SearchHandler\SearchHandler.h" />
     <ClInclude Include="Utill\CollisionHelper.h" />
     <ClInclude Include="Component\Physics\Collider\CircleCollider\CircleCollider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -169,14 +170,14 @@
     <ClInclude Include="Manager\GameObject\GameObjectManager.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="MainEntry\MainEntry.h" />
-    <ClInclude Include="Module\Brush\BrushModule.h" />
-    <ClInclude Include="Module\Camera\CameraModule.h" />
-    <ClInclude Include="Module\Font\FontManager.h" />
-    <ClInclude Include="Module\Key\KeyModule.h" />
-    <ClInclude Include="Module\Scene\SceneManager.h" />
-    <ClInclude Include="Module\SingletonBase.h" />
-    <ClInclude Include="Module\Sound\SoundModule.h" />
-    <ClInclude Include="Module\Timer\TimerModule.h" />
+    <ClInclude Include="Manager\Singleton\Brush\BrushModule.h" />
+    <ClInclude Include="Manager\Singleton\Camera\CameraModule.h" />
+    <ClInclude Include="Manager\Singleton\Font\FontManager.h" />
+    <ClInclude Include="Manager\Singleton\Key\KeyModule.h" />
+    <ClInclude Include="Manager\Singleton\Scene\SceneManager.h" />
+    <ClInclude Include="Manager\Singleton\SingletonBase.h" />
+    <ClInclude Include="Manager\Singleton\Resource\Sound\SoundModule.h" />
+    <ClInclude Include="Manager\Singleton\Timer\TimerModule.h" />
     <ClInclude Include="Component\Physics\Collider\RectCollider\RectCollider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
@@ -190,22 +191,22 @@
     <ClInclude Include="Utill\Utillity.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component\Graphic\Animation\Animation.cpp" />
-    <ClCompile Include="Component\Graphic\Animation\Animate\Animate.cpp" />
+    <ClCompile Include="Component\Graphic\Animator\Animator.cpp" />
+    <ClCompile Include="Component\Graphic\Image\Sprite.cpp" />
+    <ClCompile Include="Component\Graphic\Image\Image.cpp" />
+    <ClCompile Include="Manager\Singleton\Resource\Image\ImageInfo\ImageInfo.cpp" />
+    <ClCompile Include="Manager\Collision\CollisionManager.cpp" />
     <ClCompile Include="Component\Figure\Grid\Grid.cpp" />
     <ClCompile Include="GameObject\UI\UI.cpp" />
     <ClCompile Include="Interface\Controller\Controller.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Physics\Collider\UICollider\UICollider.cpp" />
-    <ClCompile Include="Manager\Collision\Moveable\MCollMgr.cpp" />
     <ClCompile Include="Interface\State\Move\MoveState.cpp" />
     <ClCompile Include="Component\Algorithm\Navigator\Navigator.cpp" />
-    <ClCompile Include="Manager\Collision\UnMoveable\UMCollMgr.cpp" />
     <ClCompile Include="Component\Physics\RidgidBody\RidgidBody.cpp" />
     <ClCompile Include="GameObject\TestObject\TestObject.cpp" />
-    <ClCompile Include="Module\Image\ImageManager.cpp" />
-    <ClCompile Include="Module\Image\ImageModule.cpp" />
-    <ClCompile Include="Module\Image\ImageModule_Transform.cpp" />
+    <ClCompile Include="Manager\Singleton\Resource\Image\ImageManager.cpp" />
+    <ClCompile Include="Component\Algorithm\Search\SearchHandler\SearchHandler.cpp" />
     <ClCompile Include="Utill\CollisionHelper.cpp" />
     <ClCompile Include="Component\Physics\Collider\CircleCollider\CircleCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -214,13 +215,13 @@
     <ClCompile Include="Manager\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="MainEntry\MainEntry.cpp" />
-    <ClCompile Include="Module\Brush\BrushModule.cpp" />
-    <ClCompile Include="Module\Camera\CameraModule.cpp" />
-    <ClCompile Include="Module\Font\FontManager.cpp" />
-    <ClCompile Include="Module\Key\KeyModule.cpp" />
-    <ClCompile Include="Module\Scene\SceneManager.cpp" />
-    <ClCompile Include="Module\Sound\SoundModule.cpp" />
-    <ClCompile Include="Module\Timer\TimerModule.cpp" />
+    <ClCompile Include="Manager\Singleton\Brush\BrushModule.cpp" />
+    <ClCompile Include="Manager\Singleton\Camera\CameraModule.cpp" />
+    <ClCompile Include="Manager\Singleton\Font\FontManager.cpp" />
+    <ClCompile Include="Manager\Singleton\Key\KeyModule.cpp" />
+    <ClCompile Include="Manager\Singleton\Scene\SceneManager.cpp" />
+    <ClCompile Include="Manager\Singleton\Resource\Sound\SoundModule.cpp" />
+    <ClCompile Include="Manager\Singleton\Timer\TimerModule.cpp" />
     <ClCompile Include="Component\Physics\Collider\RectCollider\RectCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>

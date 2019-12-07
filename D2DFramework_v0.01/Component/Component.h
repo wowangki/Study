@@ -15,4 +15,5 @@ public:
 	virtual void Update(void) = 0;
 	virtual void Render(void) = 0;
 
+	inline GameObject* GetMyObject(void) { return object; }
 };

@@ -66,24 +66,20 @@ void RidgidBody::IsCollision(Collider * other)
 		bool isColl = collider->GetIsCollision();
 		bool prevColl = isColl;
 
-		if (dynamic_cast<RectCollider*>(collider)) {
-			if (dynamic_cast<RectCollider*>(other)) {
-				isColl = IsInRect(((RectCollider*)collider)->GetCollBox(),
-								  ((RectCollider*)other)->GetCollBox());
+		if (RectCollider* myCollider = dynamic_cast<RectCollider*>(collider)) {
+			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>(other)) {
+				isColl = IsInRect(myCollider->GetCollBox(), cachingOther->GetCollBox());
 			}
-			else if (dynamic_cast<CircleCollider*>(other)) {
-				isColl = IsRectInCircle(((RectCollider*)collider)->GetCollBox(),
-										((CircleCollider*)other)->GetCollBox());
+			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>(other)) {
+				isColl = IsRectInCircle(myCollider->GetCollBox(), cachingOther->GetCollBox());
 			}
 		}
-		else if (dynamic_cast<CircleCollider*>(collider)){
-			if (dynamic_cast<RectCollider*>(other)) {
-				isColl = IsRectInCircle(((RectCollider*)other)->GetCollBox(),
-										((CircleCollider*)collider)->GetCollBox());
+		else if (CircleCollider* myCollider = dynamic_cast<CircleCollider*>(collider)){
+			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>(other)) {
+				isColl = IsRectInCircle(cachingOther->GetCollBox(), myCollider->GetCollBox());
 			}
-			else if (dynamic_cast<CircleCollider*>(other)) {
-				isColl = IsInCircle(((CircleCollider*)collider)->GetCollBox(),
-									((CircleCollider*)other)->GetCollBox());
+			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>(other)) {
+				isColl = IsInCircle(myCollider->GetCollBox(), cachingOther->GetCollBox());
 			}
 		}
 
@@ -116,23 +112,21 @@ void RidgidBody::Revision(void)
 
 	for (UINT i = 0; i < lOther.size(); i++) {
 		D2D_POINT_2F translate = { 0,0 };
-		if (dynamic_cast<RectCollider*>(collider)) {
-			if (dynamic_cast<RectCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(
-					((RectCollider*)collider)->GetCollBox(),
-					((RectCollider*)(lOther.front() + i))->GetCollBox());
+		if (RectCollider* myCollider = dynamic_cast<RectCollider*>(collider)) {
+			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
 
 				if (!denyG) {
 					if (abs(translate.x) > abs(translate.y)) {
-						denyG = (lOther.front() + i);
+						denyG = cachingOther;
 					}
 					else denyG = nullptr;
 				}
 
-				if (transform->GetWorldPos().y < (lOther.front() + i)->GetTransform()->GetWorldPos().y) {
+				if (transform->GetWorldPos().y < cachingOther->GetTransform()->GetWorldPos().y) {
 					translate.y *= -1;
 				}
-				if (transform->GetWorldPos().x < (lOther.front() + i)->GetTransform()->GetWorldPos().x) {
+				if (transform->GetWorldPos().x < cachingOther->GetTransform()->GetWorldPos().x) {
 					translate.x *= -1;
 				}
 
@@ -147,29 +141,21 @@ void RidgidBody::Revision(void)
 				}
 
 			}
-			else if (dynamic_cast<CircleCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(
-					((RectCollider*)collider)->GetCollBox(),
-					((CircleCollider*)(lOther.front() + i))->GetCollBox());
+			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
 			}
 		}
-		else if (dynamic_cast<CircleCollider*>(collider)) {
-			if (dynamic_cast<RectCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(
-					((RectCollider*)(lOther.front() + i))->GetCollBox(),
-					((CircleCollider*)collider)->GetCollBox());
+		else if (CircleCollider* myCollider = dynamic_cast<CircleCollider*>(collider)) {
+			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(cachingOther->GetCollBox(), myCollider->GetCollBox());
 			}
-			else if (dynamic_cast<CircleCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(
-					((CircleCollider*)collider)->GetCollBox(),
-					((CircleCollider*)(lOther.front() + i))->GetCollBox());
+			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
 
 				if (!denyG) {
-					if (transform->GetWorldPos().x ==
-						(lOther.front() + i)->GetTransform()->GetWorldPos().x &&
-						transform->GetWorldPos().y <
-						(lOther.front() + i)->GetTransform()->GetWorldPos().y) {
-						denyG = (lOther.front() + i);
+					if (transform->GetWorldPos().x ==	cachingOther->GetTransform()->GetWorldPos().x &&
+						transform->GetWorldPos().y < cachingOther->GetTransform()->GetWorldPos().y) {
+						denyG = cachingOther;
 					}
 					else denyG = nullptr;
 				}
