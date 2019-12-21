@@ -4,27 +4,22 @@
 #include "../Component/Figure/Transform/Transform.h"
 #include "../Manager/Singleton/Resource/Image/ImageInfo/ImageInfo.h"
 
-Sprite::Sprite()
-	:imageInfo(nullptr), transform(nullptr), frame({ 0,0 }), opacity(1.0f), isReverse(false), isCull(false)
+Sprite::Sprite(Transform * transform)
+	: imageInfo(nullptr), transform(nullptr), frame({ 0,0 }), opacity(1.0f), 
+	isReverse(false), isCull(false), type(SINGLE)
 {
+	this->transform = transform;
 }
-
-Sprite::Sprite(GameObject * object)
-	: imageInfo(nullptr), transform(nullptr), frame({ 0,0 }), opacity(1.0f), isReverse(false), isCull(false)
-{
-	this->object = object;
-	transform = object->GetComponent<Transform>();
-}
-
 
 Sprite::~Sprite()
 {
 }
 
-HRESULT Sprite::Init(string nickName, D2D_POINT_2L frame)
+HRESULT Sprite::Init(string nickName, SPRITE_TYPE type, D2D_POINT_2L frame)
 {
 	imageInfo = _IMAGE->FindImage(nickName);
 	this->frame = frame;
+	this->type = type;
 
 	return S_OK;
 }

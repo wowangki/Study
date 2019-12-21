@@ -13,20 +13,23 @@ private:
 	vector<vector<Transform*>> vGrid;
 
 private:
-	D2D_SIZE_F gridSize;
-	D2D_POINT_2U length;
+	Transform* transform;
+
+	D2D_SIZE_F cellSize;
+	D2D_POINT_2U maxCell;
+
+private:
+	DEFINE_COMPONENT(Grid, Component, false);
 
 public:
-	Grid();
 	explicit Grid(GameObject* object);
 	~Grid();
 
 	// Component을(를) 통해 상속됨
-	virtual HRESULT Init(D2D_POINT_2F pos, D2D_SIZE_F gridSize, D2D_POINT_2U length, PIVOT pivot = PIVOT_CC);
+	virtual HRESULT Init(D2D_SIZE_F cellSize, D2D_POINT_2U maxCell, PIVOT pivot = PIVOT_CC);
 	virtual void Release(void) override;
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
 	void SetGridTransform(GameObject* object, D2D_POINT_2U index);
 };
-

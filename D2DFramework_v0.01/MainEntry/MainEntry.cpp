@@ -27,6 +27,7 @@ HRESULT MainEntry::Init(void)
 
 	t1->Init();
 	t2->Init();
+	
 	((TestObject*)t1)->SetIsControll(true);
 
 	return S_OK;
@@ -42,14 +43,13 @@ void MainEntry::Update(void)
 {
 	t1->Update();
 	t2->Update();
-
-	t1->GetComponent<RidgidBody>()->IsCollision(t2->GetComponent<RectCollider>());
+	
+	t1->GetComponent<Collider>()->IsCollision(t2->GetComponent<Collider>());
 }
 
 void MainEntry::Render(void)
 {
-	D2D_POINT_2F temp = GetRevisionSize(t1->GetComponent<RectCollider>()->GetCollBox(),
-									t2->GetComponent<RectCollider>()->GetCollBox());
+	D2D_POINT_2F temp = t1->GetComponent<RidgidBody>()->t_GetRevisionSize(t2->GetComponent<Collider>());
 	
 	WCHAR tString[256];
 	static TCHAR tTextString[] = L"WIDTH : %.2f\nHIGHT : %.2f\n";

@@ -5,15 +5,17 @@
 #include "../CircleCollider/CircleCollider.h"
 #include "../Interface/Collision/ICollision.h"
 #include "../Manager/Collision/CollisionManager.h"
+#include "../Component/Physics/RidgidBody/RidgidBody.h"
 
-RectCollider::RectCollider()
-{
-}
+DECLARE_COMPONENT(RectCollider);
 
 RectCollider::RectCollider(GameObject * object)
 {
 	this->object = object;
 	//this->object->GetCollMgr()->AddCollider(this);
+	if (Collider* temp = object->GetComponent<Collider>()) {
+		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
+	}
 	transform = new Transform(this->object);
 	this->isTrigger = false;
 	this->isColl = false;
@@ -32,7 +34,11 @@ HRESULT RectCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float
 		transform->Init(pos, size, pivot, angle, object->GetComponent<Transform>());
 	}
 
-	collBox = transform->GetRect();
+	
+	collBox.rc = new D2D_RECT_F;
+	*collBox.rc = MakeRect(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
+
+	collBox.cir = nullptr;
 
 	return S_OK;
 }
@@ -44,39 +50,55 @@ void RectCollider::Release(void)
 
 void RectCollider::Update(void)
 {
-	collBox = transform->GetRect();
+	*collBox.rc = MakeRect(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
 }
 
 void RectCollider::Render(void)
 {
-	_RenderTarget->DrawRectangle(collBox, _Device->pDefaultBrush);
+	_RenderTarget->DrawRectangle(collBox.rc, _Device->pDefaultBrush);
 }
 
-void RectCollider::IsCollision(Collider * col)
+void RectCollider::IsCollision(Collider * other)
 {
-	if (!isTrigger) return;
-
 	bool prevColl = isColl;
 
-	if (RectCollider* other = dynamic_cast<RectCollider*>(col)) {
-		isColl = IsInRect(collBox, other->GetCollBox());
+	if (other->GetCollBox().rc) {
+		isColl = IsInRect(collBox.rc, other->GetCollBox().rc);
 	}
-	else if (CircleCollider* other = dynamic_cast<CircleCollider*>(col)) {
-		isColl = IsRectInCircle(collBox, other->GetCollBox());
+	else if (other->GetCollBox().cir) {
+		isColl = IsRectInCircle(collBox.rc, other->GetCollBox().cir);
 	}
-	
+
+	RidgidBody* ridgid = nullptr;
 	if (isColl) {
 		if (!prevColl) {
-			object->OnTriggerEnter(col);
+			if (!isTrigger) {
+				object->OnCollisionEnter(other);
+
+				if ((ridgid = object->GetComponent<RidgidBody>())) {
+					ridgid->AddCollider(other);
+				}
+			}
+			else object->OnTriggerEnter(other);
 		}
 		else {
-			object->OnTriggerStay(col);
+			if (!isTrigger) {
+				object->OnCollisionStay(other);
+			}
+			else object->OnTriggerStay(other);
 		}
 	}
 	else {
 		if (!prevColl) return;
 		else {
-			object->OnTriggerEnd(col);
+			if (!isTrigger) {
+				object->OnCollisionEnd(other);
+
+				if ((ridgid = object->GetComponent<RidgidBody>())) {
+					ridgid->DeleteColl(other);
+				}
+			}
+			else object->OnTriggerEnd(other);
 		}
 	}
 }

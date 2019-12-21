@@ -3,13 +3,13 @@
 #include "../GameObject/GameObject.h"
 #include "../Component/Figure/Transform/Transform.h"
 
-Grid::Grid()
-{
-}
+DECLARE_COMPONENT(Grid);
 
 Grid::Grid(GameObject * object)
+	:cellSize({1,1}), maxCell({1,1})
 {
 	this->object = object;
+	this->transform = object->GetComponent<Transform>();
 }
 
 
@@ -20,64 +20,66 @@ Grid::~Grid()
 // 2019.11.27 ==================================================================//
 // 그리드 생성 =================================================================//
 // ============================================================================//
-HRESULT Grid::Init(D2D_POINT_2F pos, D2D_SIZE_F gridSize, D2D_POINT_2U length, PIVOT pivot)
+HRESULT Grid::Init(D2D_SIZE_F cellSize, D2D_POINT_2U maxCell, PIVOT pivot)
 {
-	this->gridSize = gridSize;
-	this->length = length;
+	D2D_POINT_2F pos = transform->GetWorldPos();
 
-	for (UINT y = 0; y < length.y; y++)
+	this->cellSize = cellSize;
+	this->maxCell = maxCell;
+
+	for (UINT y = 0; y < maxCell.y; y++)
 	{
 		vector<Transform*> vTemp;
 		D2D_POINT_2F tPos;
-		for (UINT x = 0; x < length.x; x++)
+		for (UINT x = 0; x < maxCell.x; x++)
 		{
 			Transform* temp = new Transform(object);
 			switch (pivot)
 			{
 			case nFigure::PIVOT_LT:
-				tPos = { pos.x + (x * gridSize.width), 
-						 pos.y + (y * gridSize.height) };
+				tPos = { pos.x + (x * cellSize.width),
+						 pos.y + (y * cellSize.height) };
 				break;
 			case nFigure::PIVOT_LC:
-				tPos = { pos.x + (x * gridSize.width), 
-						 pos.y + ((y - length.y * 0.5f) * gridSize.height) };
+				tPos = { pos.x + (x * cellSize.width),
+						 pos.y + ((y - maxCell.y * 0.5f) * cellSize.height) };
 				break;
 			case nFigure::PIVOT_LB:
-				tPos = { pos.x + (x * gridSize.width),
-						 pos.y + ((y - length.y) * gridSize.height) };
+				tPos = { pos.x + (x * cellSize.width),
+						 pos.y + ((y - maxCell.y) * cellSize.height) };
 				break;
 			case nFigure::PIVOT_CT:
-				tPos = { pos.x + ((x - length.x * 0.5f) * gridSize.width),
-						 pos.y + (y * gridSize.height) };
+				tPos = { pos.x + ((x - maxCell.x * 0.5f) * cellSize.width),
+						 pos.y + (y * cellSize.height) };
 				break;
 			case nFigure::PIVOT_CC:default:
-				tPos = { pos.x + ((x - length.x * 0.5f) * gridSize.width), 
-						 pos.y + (((y - length.y * 0.5f) - length.y * 0.5f) * gridSize.height) };
+				tPos = { pos.x + ((x - maxCell.x * 0.5f) * cellSize.width),
+						 pos.y + (((y - maxCell.y * 0.5f) - maxCell.y * 0.5f) * cellSize.height) };
 				break;
 			case nFigure::PIVOT_CB:
-				tPos = { pos.x + ((x - length.x * 0.5f) * gridSize.width),
-						 pos.y + ((y - length.y) * gridSize.height) };
+				tPos = { pos.x + ((x - maxCell.x * 0.5f) * cellSize.width),
+						 pos.y + ((y - maxCell.y) * cellSize.height) };
 				break;
 			case nFigure::PIVOT_RT:
-				tPos = { pos.x + ((x - length.x) * gridSize.width), 
-						 pos.y + (y * gridSize.height) };
+				tPos = { pos.x + ((x - maxCell.x) * cellSize.width),
+						 pos.y + (y * cellSize.height) };
 				break;
 			case nFigure::PIVOT_RC:
-				tPos = { pos.x + ((x - length.x) * gridSize.width),
-						 pos.y + ((y - length.y * 0.5f) * gridSize.height) };
+				tPos = { pos.x + ((x - maxCell.x) * cellSize.width),
+						 pos.y + ((y - maxCell.y * 0.5f) * cellSize.height) };
 				break;
 			case nFigure::PIVOT_RB:
-				tPos = { pos.x + ((x - length.x) * gridSize.width),
-						 pos.y + ((y - length.y) * gridSize.height) };
+				tPos = { pos.x + ((x - maxCell.x) * cellSize.width),
+						 pos.y + ((y - maxCell.y) * cellSize.height) };
 				break;
 			}
 
 			temp->Init(
 				tPos, 
-				gridSize, 
+				cellSize,
 				pivot, 
 				0.0f, 
-				object->GetComponent<Transform>());
+				transform);
 
 			vTemp.push_back(temp);
 		}

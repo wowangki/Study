@@ -3,13 +3,18 @@
 //================== Sprite ================================//
 
 #pragma once
-#include "../Component/Component.h"
 
 class ImageInfo;
 class Transform;
-class GameObject;
-class Sprite final : public Component
+class Sprite final
 {
+public:
+	enum SPRITE_TYPE {
+		SINGLE,
+		MULTIPLE,
+		ANIMATE
+	};
+
 private:
 	ImageInfo* imageInfo;
 
@@ -21,15 +26,16 @@ private:
 	bool isReverse;
 	bool isCull;
 
+	SPRITE_TYPE type;
+
 public:
-	Sprite();
-	explicit Sprite(GameObject* object);
+	explicit Sprite(Transform* transform);
 	~Sprite();
 
-	HRESULT Init(string nickName, D2D_POINT_2L frame = { 0,0 });
-	virtual void Release(void) override;
-	virtual void Update(void) override;
-	virtual void Render(void) override;
+	HRESULT Init(string nickName, SPRITE_TYPE type = SINGLE, D2D_POINT_2L frame = { 0,0 });
+	virtual void Release(void);
+	virtual void Update(void);
+	virtual void Render(void);
 
 	inline ImageInfo* GetImageInfo(void) const { return imageInfo; }
 	inline Transform* GetTransform(void) const { return transform; }

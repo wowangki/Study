@@ -26,3 +26,57 @@ if(distance <= from.radiusX + to.radiusX ||
    distance <= from.raidusY + to.radiusY) return true;
 
 ※ 원은 radiusX와 radiusY가 같으므로 축약 가능
+
+//================================ 보정 함수 (RidgidBody용) =======================================//
+D2D_POINT_2F translate = { 0,0 };
+		if (RectCollider* myCollider = dynamic_cast<RectCollider*>(collider)) {
+			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
+
+				if (!denyG) {
+					if (abs(translate.x) > abs(translate.y)) {
+						denyG = cachingOther;
+					}
+					else denyG = nullptr;
+				}
+
+				if (transform->GetWorldPos().y < cachingOther->GetTransform()->GetWorldPos().y) {
+					translate.y *= -1;
+				}
+				if (transform->GetWorldPos().x < cachingOther->GetTransform()->GetWorldPos().x) {
+					translate.x *= -1;
+				}
+
+				if (abs(translate.x) > abs(translate.y)) {
+					transform->Translate({ 0, translate.y });
+				}
+				else if (abs(translate.x) < abs(translate.y)) {
+					transform->Translate({ translate.x, 0 });
+				}
+				else {
+					transform->Translate({ translate.x, translate.y });
+				}
+
+			}
+			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
+			}
+		}
+		else if (CircleCollider* myCollider = dynamic_cast<CircleCollider*>(collider)) {
+			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(cachingOther->GetCollBox(), myCollider->GetCollBox());
+			}
+			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>((lOther.front() + i))) {
+				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
+
+				if (!denyG) {
+					if (transform->GetWorldPos().x ==	cachingOther->GetTransform()->GetWorldPos().x &&
+						transform->GetWorldPos().y < cachingOther->GetTransform()->GetWorldPos().y) {
+						denyG = cachingOther;
+					}
+					else denyG = nullptr;
+				}
+
+				transform->Translate({ translate.x, translate.y });
+			}
+		}

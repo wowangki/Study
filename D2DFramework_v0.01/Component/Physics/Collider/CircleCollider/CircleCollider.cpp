@@ -5,15 +5,18 @@
 #include "../RectCollider/RectCollider.h"
 #include "../Interface/Collision/ICollision.h"
 #include "../Manager/Collision/CollisionManager.h"
+#include "../Component/Physics/RidgidBody/RidgidBody.h"
 
-CircleCollider::CircleCollider()
-{
-}
+DECLARE_COMPONENT(CircleCollider);
 
 CircleCollider::CircleCollider(GameObject * object)
 {
 	this->object = object;
 	//this->object->GetCollMgr()->AddCollider(this);
+	if (Collider* temp = object->GetComponent<Collider>()) {
+		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
+	}
+
 	transform = new Transform(this->object);
 	this->isTrigger = false;
 	this->isColl = false;
@@ -32,7 +35,9 @@ HRESULT CircleCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, flo
 		transform->Init(pos, size, pivot, angle, object->GetComponent<Transform>());
 	}
 
-	collBox = MakeCircle(transform->GetWorldPos(), transform->GetSize());
+	collBox.cir = new D2D1_ELLIPSE;
+	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
+	collBox.rc = nullptr;
 
 	return S_OK;
 }
@@ -45,39 +50,55 @@ void CircleCollider::Release(void)
 
 void CircleCollider::Update(void)
 {
-	collBox = MakeCircle(transform->GetWorldPos(), transform->GetSize());
+	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
 }
 
 void CircleCollider::Render(void)
 {
-	_RenderTarget->DrawEllipse(collBox, _Device->pDefaultBrush);
+	_RenderTarget->DrawEllipse(collBox.cir, _Device->pDefaultBrush);
 }
 
-void CircleCollider::IsCollision(Collider * col)
+void CircleCollider::IsCollision(Collider * other)
 {
-	if (!isTrigger) return;
-
 	bool prevColl = isColl;
 
-	if (RectCollider* other = dynamic_cast<RectCollider*>(col)) {
-		isColl = IsRectInCircle(other->GetCollBox(), collBox);
+	if (other->GetCollBox().rc) {
+		isColl = IsRectInCircle(other->GetCollBox().rc, collBox.cir);
 	}
-	else if (CircleCollider* other = dynamic_cast<CircleCollider*>(col)) {
-		isColl = IsInCircle(collBox, other->GetCollBox());
+	else if (other->GetCollBox().cir) {
+		isColl = IsInCircle(collBox.cir, other->GetCollBox().cir);
 	}
 
+	RidgidBody* ridgid = nullptr;
 	if (isColl) {
 		if (!prevColl) {
-			object->OnTriggerEnter(col);
+			if (!isTrigger) {
+				object->OnCollisionEnter(other);
+
+				if ((ridgid = object->GetComponent<RidgidBody>())) {
+					ridgid->AddCollider(other);
+				}
+			}
+			else object->OnTriggerEnter(other);
 		}
 		else {
-			object->OnTriggerStay(col);
+			if (!isTrigger) {
+				object->OnCollisionStay(other);
+			}
+			else object->OnTriggerStay(other);
 		}
 	}
 	else {
 		if (!prevColl) return;
 		else {
-			object->OnTriggerEnd(col);
+			if (!isTrigger) {
+				object->OnCollisionEnd(other);
+
+				if ((ridgid = object->GetComponent<RidgidBody>())) {
+					ridgid->DeleteColl(other);
+				}
+			}
+			else object->OnTriggerEnd(other);
 		}
 	}
 }

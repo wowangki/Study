@@ -11,7 +11,7 @@ TestObject::TestObject()
 	mode = OBJECT_MODE::DEFAULT;
 	layer = LAYER::DEFAULT;
 	
-	AddComponent<Transform>()->Init({ 0,0 }, { 0,0 });
+	AddComponent(new Transform(this))->Init({ 0,0 }, { 0,0 });
 }
 
 TestObject::TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
@@ -21,7 +21,7 @@ TestObject::TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float ang
 	layer = LAYER::DEFAULT;
 	isControll = false;
 	speed = 5.0f;
-	AddComponent<Transform>()->Init(pos, size, pivot, angle);
+	AddComponent(new Transform(this))->Init(pos, size, pivot, angle);
 	state = 0;
 }
 
@@ -32,9 +32,8 @@ TestObject::~TestObject()
 
 HRESULT TestObject::Init(void)
 {
-	//AddComponent<CircleCollider>()->Init();
-	AddComponent<RidgidBody>()->Init(30.0f);
-	AddComponent<Animator>()->AddSprite(state, "Test");
+	AddComponent(new RidgidBody(this))->Init(30.0f, RidgidBody::COLL_TYPE::RECTANGLE);
+	AddComponent(new Animator(this))->AddSprite(state, "Test");
 
 	return S_OK;
 }

@@ -4,10 +4,7 @@
 #include "../Manager/Singleton/Resource/Image/ImageInfo/ImageInfo.h"
 #include "../GameObject/GameObject.h"
 
-Image::Image()
-	:imageInfo(nullptr),transform(nullptr),opacity(1.0f),isCull(false)
-{
-}
+DECLARE_COMPONENT(Image);
 
 Image::Image(GameObject * object)
 	:imageInfo(nullptr),opacity(1.0f),isCull(false)

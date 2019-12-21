@@ -21,12 +21,14 @@ private:
 	float localAngle;		// localAngle;
 	D2D_RECT_F rc;			// RECT
 
-	Transform* parent;		//Prent (if isolate Transform parent = this)
+	Transform* parent;		//Parent (if isolate Transform parent = this)
 	list<Transform*> children; // Children
 	typedef list<Transform*>::iterator lIter;
 
+private:
+	DEFINE_COMPONENT(Transform, Component, false);
+
 public:
-	Transform();
 	explicit Transform(GameObject* object);
 	virtual ~Transform();
 
@@ -77,4 +79,3 @@ public:
 	void Ratate(const float degree);
 	
 };
-

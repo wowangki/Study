@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "Animator.h"
 #include "../GameObject/GameObject.h"
+#include "../Component/Figure/Transform/Transform.h"
 #include "../Component/Graphic/Image/Sprite.h"
 #include "../Manager/Singleton/Resource/Image/ImageInfo/ImageInfo.h"
 
-Animator::Animator()
-{
-}
+DECLARE_COMPONENT(Animator);
 
 Animator::Animator(GameObject * object)
 	:currentTime(0.0f), frameTime(0.0f)
@@ -24,7 +23,7 @@ void Animator::AddSprite(int state, string nickName)
 	Sprite* sprite = FindSprite(_IMAGE->FindImage(nickName));
 	if (sprite) return;
 
-	sprite = new Sprite(object);
+	sprite = new Sprite(object->GetComponent<Transform>());
 	sprite->Init(nickName);
 	
 	frameTime = DEFAULT_FRAMETIME;

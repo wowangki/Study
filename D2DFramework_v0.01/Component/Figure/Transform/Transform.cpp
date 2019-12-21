@@ -2,16 +2,11 @@
 #include "Transform.h"
 #include "../GameObject/GameObject.h"
 
-Transform::Transform()
-	:worldPos({ 0,0 }), localPos({ 0,0 }), size({ 0,0 }), pivot(PIVOT_LT), worldAngle(0.0f),
-	localAngle(0.0f), parent(this)
-{
-	this->object = nullptr;
-}
+DECLARE_COMPONENT(Transform);
 
 Transform::Transform(GameObject * object)
 	: worldPos({ 0,0 }), localPos({ 0,0 }), size({ 0,0 }), pivot(PIVOT_LT), worldAngle(0.0f),
-	localAngle(0.0f), parent(this)
+	localAngle(0.0f), parent(nullptr)
 {
 	this->object = object;
 }
@@ -73,7 +68,6 @@ HRESULT Transform::Init(Transform * parent)
 	this->worldAngle = parent->worldAngle;
 
 	rc = MakeRect(worldPos, size, pivot);
-
 	return S_OK;
 }
 

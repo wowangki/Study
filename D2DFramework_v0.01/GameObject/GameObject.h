@@ -3,7 +3,8 @@
 //================== GAME OBJECT ===========================//
 
 #pragma once
-#include <map>
+#include <unordered_map>
+#include "../Component/Component.h"
 #include "../Interface/Collision/ICollision.h"
 
 enum class OBJECT_MODE { DEFAULT, INGAME, TOOLSET };
@@ -14,11 +15,10 @@ class CollisionManager;
 class GameObject : public ICollision, ITrigger
 {
 protected:
-	map<string, Component*> mComponent;
-	typedef map<string, Component*>::iterator mIter;
+	unordered_map<size_t, Component*> mComponent;
+	typedef unordered_map<size_t, Component*>::iterator mIter;
 
 protected:
-	static int s_id;
 	int id;
 	string name;
 	string tag;
@@ -37,32 +37,36 @@ public:
 	virtual void Update(void) = 0;
 	virtual void Render(void) = 0;
 	
-	template<typename T>
-	inline T* AddComponent(void)
+	template<class Component_t>
+	inline Component_t* AddComponent(Component_t* component)
 	{
-		Component* temp = GetComponent<T>();
-		if (temp) return (T*) temp;
-		
-		temp = new T(this);
-		mComponent.insert(make_pair(typeid(T).name(), temp));
+		size_t componentId = get_component<Component_t>::type::getComponentId();
 
-		return (T*)temp;
+		this->mComponent[componentId] = component;
+		
+		return reinterpret_cast<Component_t*>(mComponent[componentId]);
 	}
 
-	template<typename T>
-	inline T * GetComponent(void)
+	template<class Component_t>
+	inline Component_t * GetComponent(void)
 	{
 		if (mComponent.empty()) return nullptr;
+		
+		size_t componentId = get_component<Component_t>::type::getComponentId();
+		
+		if (mComponent.find(componentId) == mComponent.end()) return nullptr;
+		
+		return reinterpret_cast<Component_t*>(mComponent[componentId]);
+	}
 
-		mIter iter = mComponent.begin();
+	template<class Component_t>
+	inline void RemoveComponent(void) {
+		if (mComponent.empty()) return;
 
-		for (iter; iter != mComponent.end(); ++iter) {
-			if (iter->first == typeid(T).name()) {
-				return (T*)iter->second;
-			}
-		}
+		size_t componentId = get_component<Component_t>::type::getComponentId();
 
-		return nullptr;
+		if (mComponent.find(componentId) != mComponent.end()) 
+			mComponent.erase(componentId);
 	}
 
 	inline int GetID(void) { return id; }

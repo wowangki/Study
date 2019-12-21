@@ -11,10 +11,9 @@
 class RectCollider final : public Collider
 {
 private:
-	D2D_RECT_F collBox;
+	DEFINE_COMPONENT(RectCollider, Collider, false);
 
 public:
-	RectCollider();
 	explicit RectCollider(GameObject* object);
 	virtual ~RectCollider();
 
@@ -23,11 +22,6 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 	
-	virtual void IsCollision(Collider* col);
-	virtual void IsCollision(void) {}
-
-	inline D2D_RECT_F GetCollBox(void) const { return collBox; }
-
-	
+	virtual void IsCollision(Collider* other);
+	virtual void IsCollision(void) {}	
 };
-

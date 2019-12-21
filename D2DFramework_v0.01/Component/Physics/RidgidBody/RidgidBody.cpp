@@ -5,29 +5,17 @@
 #include "../Collider/RectCollider/RectCollider.h"
 #include "../Collider/CircleCollider/CircleCollider.h"
 
-RidgidBody::RidgidBody()
-{
-}
+DECLARE_COMPONENT(RidgidBody);
 
 RidgidBody::RidgidBody(GameObject * object)
 {
 	this->object = object;
-
-	transform = object->GetComponent<Transform>();
-
-	if (object->GetComponent<RectCollider>()) {
-		collider = object->GetComponent<RectCollider>();
-	}
-	else if (object->GetComponent<CircleCollider>()) {
-		collider = object->GetComponent<CircleCollider>();
-	}
-	else {
-		collider = object->AddComponent<RectCollider>();
-		collider->Init();
-	}
 	useGravity = true;
 	deltaTime = 0.0f;
 	denyG = nullptr;
+
+	if (!object->GetComponent<Collider>())
+		object->AddComponent(new RectCollider(object))->Init();
 }
 
 
@@ -35,7 +23,7 @@ RidgidBody::~RidgidBody()
 {
 }
 
-HRESULT RidgidBody::Init(float mass)
+HRESULT RidgidBody::Init(float mass, COLL_TYPE type)
 {
 	this->mass = mass;
 
@@ -44,7 +32,12 @@ HRESULT RidgidBody::Init(float mass)
 
 void RidgidBody::Release(void)
 {
-	
+	if (lOther.empty()) return;
+
+	for (UINT i = 0; i < lOther.size(); i++)
+	{
+		(lOther.front())->Release();
+	}
 }
 
 void RidgidBody::Update(void)
@@ -57,123 +50,80 @@ void RidgidBody::Render(void)
 {
 }
 
-void RidgidBody::IsCollision(Collider * other)
-{
-	if (collider->GetIsTrigger()) {
-		collider->IsCollision(other);
-	}
-	else {
-		bool isColl = collider->GetIsCollision();
-		bool prevColl = isColl;
-
-		if (RectCollider* myCollider = dynamic_cast<RectCollider*>(collider)) {
-			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>(other)) {
-				isColl = IsInRect(myCollider->GetCollBox(), cachingOther->GetCollBox());
-			}
-			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>(other)) {
-				isColl = IsRectInCircle(myCollider->GetCollBox(), cachingOther->GetCollBox());
-			}
-		}
-		else if (CircleCollider* myCollider = dynamic_cast<CircleCollider*>(collider)){
-			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>(other)) {
-				isColl = IsRectInCircle(cachingOther->GetCollBox(), myCollider->GetCollBox());
-			}
-			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>(other)) {
-				isColl = IsInCircle(myCollider->GetCollBox(), cachingOther->GetCollBox());
-			}
-		}
-
-		collider->SetIsCollision(isColl);
-
-		if (isColl) {
-			if (!prevColl) {
-				lOther.emplace_back(other);
-				object->OnCollisionEnter(other);
-			}
-			else {
-				object->OnCollisionStay(other);
-			}
-		}
-		else {
-			if (!prevColl) return;
-			else {
-				object->OnCollisionEnd(other);
-				lOther.remove(other);
-			}
-		}
-	}
-	
-}
-
 void RidgidBody::Revision(void)
 {
+	Collider* ownColl = object->GetComponent<Collider>();
+	if (!ownColl) return;
+
 	if (denyG) denyG = nullptr;
 	if (lOther.empty()) return;
 
+	Transform* transform = object->GetComponent<Transform>();
 	for (UINT i = 0; i < lOther.size(); i++) {
-		D2D_POINT_2F translate = { 0,0 };
-		if (RectCollider* myCollider = dynamic_cast<RectCollider*>(collider)) {
-			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
+		Collider* other = lOther.front() + i;
+		D2D_POINT_2F reviScalar = { 0,0 };
 
-				if (!denyG) {
-					if (abs(translate.x) > abs(translate.y)) {
-						denyG = cachingOther;
-					}
-					else denyG = nullptr;
-				}
-
-				if (transform->GetWorldPos().y < cachingOther->GetTransform()->GetWorldPos().y) {
-					translate.y *= -1;
-				}
-				if (transform->GetWorldPos().x < cachingOther->GetTransform()->GetWorldPos().x) {
-					translate.x *= -1;
-				}
-
-				if (abs(translate.x) > abs(translate.y)) {
-					transform->Translate({ 0, translate.y });
-				}
-				else if (abs(translate.x) < abs(translate.y)) {
-					transform->Translate({ translate.x, 0 });
-				}
-				else {
-					transform->Translate({ translate.x, translate.y });
-				}
-
+		if (D2D_RECT_F* myColl = ownColl->GetCollBox().rc) {
+			if (D2D_RECT_F* otherColl = other->GetCollBox().rc) {
+				reviScalar = GetRevisionSize(myColl, otherColl);
 			}
-			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
+			else if (D2D1_ELLIPSE* otherColl = (lOther.front() + i)->GetCollBox().cir) {
+				reviScalar = GetRevisionSize(myColl, otherColl);
 			}
 		}
-		else if (CircleCollider* myCollider = dynamic_cast<CircleCollider*>(collider)) {
-			if (RectCollider* cachingOther = dynamic_cast<RectCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(cachingOther->GetCollBox(), myCollider->GetCollBox());
+		else if (D2D1_ELLIPSE* myColl = ownColl->GetCollBox().cir) {
+			if (D2D_RECT_F* otherColl = (lOther.front() + i)->GetCollBox().rc) {
+				reviScalar = GetRevisionSize(otherColl, myColl);
 			}
-			else if (CircleCollider* cachingOther = dynamic_cast<CircleCollider*>((lOther.front() + i))) {
-				translate = GetRevisionSize(myCollider->GetCollBox(), cachingOther->GetCollBox());
-
-				if (!denyG) {
-					if (transform->GetWorldPos().x ==	cachingOther->GetTransform()->GetWorldPos().x &&
-						transform->GetWorldPos().y < cachingOther->GetTransform()->GetWorldPos().y) {
-						denyG = cachingOther;
-					}
-					else denyG = nullptr;
-				}
-
-				transform->Translate({ translate.x, translate.y });
+			else if (D2D1_ELLIPSE* otherColl = (lOther.front() + i)->GetCollBox().cir) {
+				reviScalar = GetRevisionSize(myColl, otherColl);
 			}
 		}
+
+		if (!denyG) {
+			if (abs(reviScalar.x) < abs(reviScalar.y) &&
+				transform->GetWorldPos().y < other->GetTransform()->GetWorldPos().y) {
+				denyG = other;
+			}
+			else denyG = nullptr;
+		}
+
+		transform->Translate({ reviScalar.x, reviScalar.y });
 	}
 }
 
 void RidgidBody::GravityUpdate(void)
 {
 	if (!useGravity) return;
-	if (transform->GetWorldPos().y + transform->GetSize().height * 0.5f >= WINSIZEY * 0.5f || denyG) {
+
+	Transform* transform = object->GetComponent<Transform>();
+	if (transform->GetWorldPos().y + transform->GetSize().height * 0.5f >= WINSIZEY * 0.5f + 100 || denyG) {
 		deltaTime = 0.0f;
 		return;
 	}
 	
 	deltaTime += _TIMER->GetElapsedTime();
 	transform->Translate({ 0, GRAVITY * deltaTime });
+}
+
+D2D_POINT_2F RidgidBody::t_GetRevisionSize(Collider * other)
+{
+	Collider* ownColl = object->GetComponent<Collider>();
+
+	if (D2D_RECT_F* ownRc = ownColl->GetCollBox().rc) {
+		if (D2D_RECT_F* otherRc = other->GetCollBox().rc) {
+			return GetRevisionSize(ownRc, otherRc);
+		}
+		else if (D2D1_ELLIPSE* otherCir = other->GetCollBox().cir) {
+			return GetRevisionSize(ownRc, otherCir);
+		}
+	}
+	else if (D2D1_ELLIPSE* ownCir = ownColl->GetCollBox().cir) {
+		if (D2D_RECT_F* otherRc = other->GetCollBox().rc) {
+			return GetRevisionSize(otherRc, ownCir);
+		}
+		else if (D2D1_ELLIPSE* otherCir = other->GetCollBox().cir) {
+			return GetRevisionSize(ownCir, otherCir);
+		}
+	}
 }

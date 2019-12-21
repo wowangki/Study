@@ -11,10 +11,9 @@
 class CircleCollider final : public Collider
 {
 private:
-	D2D1_ELLIPSE collBox;		//COLLBOX
+	DEFINE_COMPONENT(CircleCollider, Collider, false);
 
 public:
-	CircleCollider();
 	explicit CircleCollider(GameObject* object);
 	virtual ~CircleCollider();
 
@@ -23,10 +22,7 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
-	virtual void IsCollision(Collider* col) override;
+	virtual void IsCollision(Collider* other) override;
 	virtual void IsCollision(void) {}
-
-	inline D2D1_ELLIPSE GetCollBox(void) const { return collBox; }
 	
 };
-

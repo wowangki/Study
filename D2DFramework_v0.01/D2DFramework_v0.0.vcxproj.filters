@@ -144,6 +144,9 @@
     <ClInclude Include="Component\Graphic\Animator\Animator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Component\ComponentHelper.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\stdafx.cpp">
@@ -165,9 +168,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Utill\CollisionHelper.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Component.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Manager\GameObject\GameObjectManager.cpp">
@@ -249,6 +249,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Component\Graphic\Animator\Animator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Component.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

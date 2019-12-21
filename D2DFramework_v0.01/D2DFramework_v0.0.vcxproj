@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\ComponentHelper.h" />
     <ClInclude Include="Component\Graphic\Animator\Animator.h" />
     <ClInclude Include="Component\Graphic\Image\Sprite.h" />
     <ClInclude Include="Component\Graphic\Image\Image.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Utill\Utillity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Graphic\Animator\Animator.cpp" />
     <ClCompile Include="Component\Graphic\Image\Sprite.cpp" />
     <ClCompile Include="Component\Graphic\Image\Image.cpp" />
@@ -199,7 +201,6 @@
     <ClCompile Include="Component\Figure\Grid\Grid.cpp" />
     <ClCompile Include="GameObject\UI\UI.cpp" />
     <ClCompile Include="Interface\Controller\Controller.cpp" />
-    <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Physics\Collider\UICollider\UICollider.cpp" />
     <ClCompile Include="Interface\State\Move\MoveState.cpp" />
     <ClCompile Include="Component\Algorithm\Navigator\Navigator.cpp" />

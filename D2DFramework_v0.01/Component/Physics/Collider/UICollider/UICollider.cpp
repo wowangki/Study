@@ -4,9 +4,7 @@
 #include "../Interface/UI/IUI.h"
 #include "../GameObject/UI/UI.h"
 
-UICollider::UICollider()
-{
-}
+DECLARE_COMPONENT(UICollider);
 
 UICollider::UICollider(UI* ui, UICOL_TYPE type)
 {
@@ -14,9 +12,26 @@ UICollider::UICollider(UI* ui, UICOL_TYPE type)
 	SetHandler(ui);
 	this->type = type;
 
+	if (Collider* temp = object->GetComponent<Collider>()) {
+		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
+	}
+
 	transform = this->object->GetComponent<Transform>();
 	isTrigger = true;
 	isColl = false;
+
+	switch (type)
+	{
+	case UI_RECT:default:
+		collBox.rc = new D2D_RECT_F(transform->GetRect());
+		collBox.cir = nullptr;
+		break;
+	case UI_CIR:
+		collBox.cir = new D2D1_ELLIPSE(MakeCircle(transform->GetWorldPos(), transform->GetSize()));
+		collBox.rc = nullptr;
+		
+		break;
+	}
 	
 }
 
@@ -29,16 +44,18 @@ void UICollider::Release(void)
 	SafeDelete(upHandler);
 	SafeDelete(downHandler);
 	SafeDelete(dragHandler);
+	SafeDelete(collBox.rc);
+	SafeDelete(collBox.cir);
 }
 
 void UICollider::Update(void)
 {
 	switch (type) {
-	case UI_RECT:
-		rc = MakeRect(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
+	case UI_RECT:default:
+		*collBox.rc = MakeRect(transform->GetWorldPos(), transform->GetSize());
 		break;
 	case UI_CIR:
-		cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
+		*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
 		break;
 	}
 }
@@ -47,10 +64,10 @@ void UICollider::Render(void)
 {
 	switch (type) {
 	case UI_RECT:
-		_RenderTarget->DrawRectangle(rc, _Device->pDefaultBrush);
+		_RenderTarget->DrawRectangle(collBox.rc, _Device->pDefaultBrush);
 		break;
 	case UI_CIR:
-		_RenderTarget->DrawEllipse(cir, _Device->pDefaultBrush);
+		_RenderTarget->DrawEllipse(collBox.cir, _Device->pDefaultBrush);
 		break;
 	}
 }
@@ -63,10 +80,10 @@ void UICollider::IsCollision(void)
 
 	switch (type) {
 	case UI_RECT:
-		isColl = IsInRectPoint(rc, mousePointer);
+		isColl = IsInRectPoint(collBox.rc, mousePointer);
 		break;
 	case UI_CIR:
-		isColl = IsInCirPoint(cir, mousePointer);
+		isColl = IsInCirPoint(collBox.cir, mousePointer);
 		break;
 	}
 

@@ -17,8 +17,10 @@ private:
 	float opacity;
 	bool isCull;
 
+private:
+	DEFINE_COMPONENT(Image, Component, false);
+
 public:
-	Image();
 	explicit Image(GameObject* object);
 	~Image();
 
@@ -41,4 +43,3 @@ public:
 	}
 	
 };
-

@@ -22,18 +22,20 @@ class UI;
 class UICollider final : public Collider
 {
 private:
+	DEFINE_COMPONENT(UICollider, Collider, false);
+
+private:
 	// POINTER INTERFACE
 	IPointerUpHandler* upHandler;
 	IPointerDownHandler* downHandler;
 	IDragHandler* dragHandler;
 
 private:
-	D2D_RECT_F rc;			// RECT_TYPE
-	D2D1_ELLIPSE cir;		// CIR_TYPE
 	UICOL_TYPE type;		// UI_COLLISION TYPE
 
+private:
+
 public:
-	UICollider();
 	explicit UICollider(UI* ui, UICOL_TYPE type = UI_RECT);
 	virtual ~UICollider();
 
@@ -47,4 +49,3 @@ public:
 private:
 	void SetHandler(UI* ui);
 };
-

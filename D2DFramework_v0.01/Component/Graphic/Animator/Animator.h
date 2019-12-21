@@ -10,6 +10,9 @@
 class Sprite;
 class Animator final : public Component
 {
+public:
+	DEFINE_COMPONENT(Animator, Component, false);
+
 private:
 	map<int, Sprite*> mSprite;
 	typedef map<int, Sprite*>::iterator mIter;
@@ -18,7 +21,6 @@ private:
 	float frameTime;
 
 public:
-	Animator();
 	explicit Animator(GameObject* object);
 	virtual ~Animator();
 
@@ -32,4 +34,3 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 };
-
