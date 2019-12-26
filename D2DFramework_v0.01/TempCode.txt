@@ -80,3 +80,13 @@ D2D_POINT_2F translate = { 0,0 };
 				transform->Translate({ translate.x, translate.y });
 			}
 		}
+
+		//================================ 보정 수치 체크 함수 (RidgidBody용) =======================================//
+			//D2D_POINT_2F temp = t1->GetComponent<RidgidBody>()->t_GetRevisionSize(t2->GetComponent<Collider>());
+	//
+	//WCHAR tString[256];
+	//static TCHAR tTextString[] = L"WIDTH : %.2f\nHIGHT : %.2f\n";
+	//
+	//_stprintf_s(tString, tTextString, temp.x, temp.y);
+	//_FONT->Render(tString, RectF(200.0f, 0.0f, 400.0f, 100.0f));
+

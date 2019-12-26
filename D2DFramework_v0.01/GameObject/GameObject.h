@@ -15,6 +15,9 @@ class CollisionManager;
 class GameObject : public ICollision, ITrigger
 {
 protected:
+	class GameObjectManager* mgr;
+
+protected:
 	unordered_map<size_t, Component*> mComponent;
 	typedef unordered_map<size_t, Component*>::iterator mIter;
 

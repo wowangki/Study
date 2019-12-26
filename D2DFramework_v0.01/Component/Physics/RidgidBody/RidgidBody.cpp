@@ -34,10 +34,11 @@ void RidgidBody::Release(void)
 {
 	if (lOther.empty()) return;
 
-	for (UINT i = 0; i < lOther.size(); i++)
-	{
-		(lOther.front())->Release();
-	}
+	lOther.clear();
+
+	list<Collider*> lTemp;
+
+	lTemp.swap(lOther);
 }
 
 void RidgidBody::Update(void)

@@ -22,6 +22,12 @@ Image::~Image()
 HRESULT Image::Init(string nickName)
 {
 	imageInfo = _IMAGE->FindImage(nickName);
+
+	if (transform->GetSize().width == 0.0f &&
+		transform->GetSize().height == 0.0f) {
+		transform->SetSize(imageInfo->GetImgSize());
+	}
+
 	return S_OK;
 }
 
@@ -37,7 +43,7 @@ void Image::Update(void)
 		cullWindow = MakeRect({ 0,0 }, { WINSIZEX, WINSIZEY });
 	}
 	else {
-		cullWindow = MakeRect({ _CAMERA->x,_CAMERA->y }, { WINSIZEX, WINSIZEY });
+		cullWindow = MakeRect({ _CAMERA->x, _CAMERA->y }, { WINSIZEX, WINSIZEY });
 	}
 
 	isCull = !IsInRect(transform->GetRect(), cullWindow);

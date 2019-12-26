@@ -7,15 +7,16 @@
 
 TestObject::TestObject()
 {
+	_OBJMGR->RegistObjList(this);
 	isActive = true;
 	mode = OBJECT_MODE::DEFAULT;
 	layer = LAYER::DEFAULT;
-	
 	AddComponent(new Transform(this))->Init({ 0,0 }, { 0,0 });
 }
 
 TestObject::TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
 {
+	_OBJMGR->RegistObjList(this);
 	isActive = true;
 	mode = OBJECT_MODE::DEFAULT;
 	layer = LAYER::DEFAULT;
@@ -25,14 +26,14 @@ TestObject::TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float ang
 	state = 0;
 }
 
-
 TestObject::~TestObject()
 {
 }
 
 HRESULT TestObject::Init(void)
 {
-	AddComponent(new RidgidBody(this))->Init(30.0f, RidgidBody::COLL_TYPE::RECTANGLE);
+	//AddComponent(new RidgidBody(this))->Init(30.0f, RidgidBody::COLL_TYPE::RECTANGLE);
+	AddComponent(new CircleCollider(this))->Init();
 	AddComponent(new Animator(this))->AddSprite(state, "Test");
 
 	return S_OK;
@@ -45,6 +46,8 @@ void TestObject::Release(void)
 		SafeRelease(iter->second);
 	}
 	mComponent.clear();
+
+	_OBJMGR->UnRegistObjList(this);
 }
 
 void TestObject::Update(void)

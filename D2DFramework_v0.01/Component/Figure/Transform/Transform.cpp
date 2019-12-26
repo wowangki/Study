@@ -14,6 +14,7 @@ Transform::Transform(GameObject * object)
 Transform::~Transform()
 {
 }
+
 // 2019.11.27 ==================================================================//
 // 초기화 (상대 좌표 필요시) ====================================================//
 // ============================================================================//
@@ -59,6 +60,8 @@ HRESULT Transform::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float an
 // ============================================================================//
 HRESULT Transform::Init(Transform * parent)
 {
+	if (!parent) return S_OK;
+
 	this->parent = parent;
 	parent->AddChild(this);
 	this->worldPos.x = parent->worldPos.x;

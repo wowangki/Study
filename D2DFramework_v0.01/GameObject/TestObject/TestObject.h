@@ -11,7 +11,7 @@ private:
 public:
 	TestObject();
 	explicit TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT_LT, float angle = 0.0f);
-	~TestObject();
+	virtual ~TestObject();
 
 	// GameObject을(를) 통해 상속됨
 	virtual HRESULT Init(void) override;

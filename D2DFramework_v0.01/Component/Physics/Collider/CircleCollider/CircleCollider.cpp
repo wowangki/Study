@@ -4,15 +4,14 @@
 #include "../Component/Figure/Transform/Transform.h"
 #include "../RectCollider/RectCollider.h"
 #include "../Interface/Collision/ICollision.h"
-#include "../Manager/Collision/CollisionManager.h"
 #include "../Component/Physics/RidgidBody/RidgidBody.h"
+
 
 DECLARE_COMPONENT(CircleCollider);
 
 CircleCollider::CircleCollider(GameObject * object)
 {
 	this->object = object;
-	//this->object->GetCollMgr()->AddCollider(this);
 	if (Collider* temp = object->GetComponent<Collider>()) {
 		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
 	}
@@ -20,6 +19,8 @@ CircleCollider::CircleCollider(GameObject * object)
 	transform = new Transform(this->object);
 	this->isTrigger = false;
 	this->isColl = false;
+
+	_COLLMGR->RegistCollider(this);
 }
 
 CircleCollider::~CircleCollider()
@@ -46,6 +47,8 @@ HRESULT CircleCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, flo
 void CircleCollider::Release(void)
 {
 	SafeRelease(transform);
+	
+	_COLLMGR->UnRegistCollider(this);
 }
 
 void CircleCollider::Update(void)

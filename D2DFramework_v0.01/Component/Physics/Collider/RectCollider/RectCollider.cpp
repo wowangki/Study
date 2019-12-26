@@ -4,15 +4,14 @@
 #include "../Component/Figure/Transform/Transform.h"
 #include "../CircleCollider/CircleCollider.h"
 #include "../Interface/Collision/ICollision.h"
-#include "../Manager/Collision/CollisionManager.h"
 #include "../Component/Physics/RidgidBody/RidgidBody.h"
 
 DECLARE_COMPONENT(RectCollider);
 
 RectCollider::RectCollider(GameObject * object)
 {
+	_COLLMGR->RegistCollider(this);
 	this->object = object;
-	//this->object->GetCollMgr()->AddCollider(this);
 	if (Collider* temp = object->GetComponent<Collider>()) {
 		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
 	}
@@ -46,6 +45,7 @@ HRESULT RectCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float
 void RectCollider::Release(void)
 {
 	SafeRelease(transform);
+	_COLLMGR->UnRegistCollider(this);
 }
 
 void RectCollider::Update(void)

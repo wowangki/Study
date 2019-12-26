@@ -12,14 +12,20 @@
 #include "../Manager/Singleton/Key/KeyModule.h"
 #define _KEYCODE KeyModule::GetInstance()
 
-#include "../Manager/Singleton/Camera/CameraModule.h"
-#define _CAMERA CameraModule::GetInstance()
-
 #include "../Manager/Singleton/Resource/Image/ImageManager.h"
 #define _IMAGE ImageManager::GetInstance()
+
+#include "../Manager/Singleton/Camera/CameraModule.h"
+#define _CAMERA CameraModule::GetInstance()
 
 #include "../Manager/Singleton/Resource/Sound/SoundModule.h"
 #define _SOUND SoundModule::GetInstance()
 
 #include "../Manager/Singleton/Scene/SceneManager.h"
 #define _SCENE SceneManager::GetInstance()
+
+#include "../Manager/Singleton/ObjPool/GameObjectManager.h"
+#define _OBJMGR GameObjectManager::GetInstance()
+
+#include "../Manager/Singleton/Collision/CollisionMgr.h"
+#define _COLLMGR CollisionMgr::GetInstance()
