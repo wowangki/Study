@@ -2,6 +2,7 @@
 #include "Animator.h"
 #include "../GameObject/GameObject.h"
 #include "../Component/Figure/Transform/Transform.h"
+#include "../Manager/World/WorldMgr.h"
 #include "../Component/Graphic/Image/Sprite.h"
 #include "../Manager/Singleton/Resource/Image/ImageInfo/ImageInfo.h"
 
@@ -11,6 +12,7 @@ Animator::Animator(GameObject * object)
 	:currentTime(0.0f), frameTime(0.0f)
 {
 	this->object = object;
+	this->object->GetWorld()->RegistAnimator(this);
 }
 
 
@@ -25,7 +27,8 @@ void Animator::AddSprite(int state, string nickName)
 
 	sprite = new Sprite(object->GetComponent<Transform>());
 	sprite->Init(nickName);
-	
+
+	this->object->GetWorld()->UnRegistSprite(sprite);
 	frameTime = DEFAULT_FRAMETIME;
 	mSprite.insert(make_pair(state, sprite));
 }
@@ -80,6 +83,18 @@ Sprite * Animator::FindSprite(ImageInfo * img)
 	return nullptr;
 }
 
+Sprite * Animator::FindSprite(Sprite * sprite)
+{
+	for (mIter iter = mSprite.begin(); iter != mSprite.end(); ++iter)
+	{
+		if (iter->second == sprite) {
+			return sprite;
+		}
+	}
+
+	return nullptr;
+}
+
 void Animator::Release(void)
 {
 	mIter iter = mSprite.begin();
@@ -90,6 +105,8 @@ void Animator::Release(void)
 
 	map<int, Sprite*> mTemp;
 	mTemp.swap(mSprite);
+
+	this->object->GetWorld()->UnRegistAnimator(this);
 }
 
 void Animator::Update(void)

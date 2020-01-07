@@ -6,7 +6,6 @@
 Actor::Actor()
 {
 	isAlive = true;
-	mode = OBJECT_MODE::DEFAULT;
 	layer = LAYER::DEFAULT;
 	AddComponent(new Transform(this));
 	AddComponent(new Animator(this));

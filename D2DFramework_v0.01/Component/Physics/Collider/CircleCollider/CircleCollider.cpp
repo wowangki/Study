@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CircleCollider.h"
+#include "../Manager/World/WorldMgr.h"
 #include "../GameObject/GameObject.h"
 #include "../Component/Figure/Transform/Transform.h"
 #include "../RectCollider/RectCollider.h"
@@ -12,6 +13,7 @@ DECLARE_COMPONENT(CircleCollider);
 CircleCollider::CircleCollider(GameObject * object)
 {
 	this->object = object;
+	//this->object->GetWorld()->RegistPhysics(this);
 	if (Collider* temp = object->GetComponent<Collider>()) {
 		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
 	}
@@ -19,25 +21,27 @@ CircleCollider::CircleCollider(GameObject * object)
 	transform = new Transform(this->object);
 	this->isTrigger = false;
 	this->isColl = false;
-
-	_COLLMGR->RegistCollider(this);
 }
 
 CircleCollider::~CircleCollider()
 {
 }
 
-HRESULT CircleCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
+HRESULT CircleCollider::Init(void)
 {
-	if (pos.x == 0.0f && pos.y == 0.0f) {
-		transform->Init(object->GetComponent<Transform>());
-	}
-	else {
-		transform->Init(pos, size, pivot, angle, object->GetComponent<Transform>());
-	}
-
+	transform->Init(object->GetComponent<Transform>());
 	collBox.cir = new D2D1_ELLIPSE;
-	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
+	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
+	collBox.rc = nullptr;
+	return S_OK;
+}
+
+
+HRESULT CircleCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, float angle)
+{
+	transform->Init(pos, size, object->GetComponent<Transform>()->GetPivot(), angle, object->GetComponent<Transform>());
+	collBox.cir = new D2D1_ELLIPSE;
+	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
 	collBox.rc = nullptr;
 
 	return S_OK;
@@ -47,18 +51,12 @@ HRESULT CircleCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, flo
 void CircleCollider::Release(void)
 {
 	SafeRelease(transform);
-	
-	_COLLMGR->UnRegistCollider(this);
+	//this->object->GetWorld()->UnRegistPhysics(this);
 }
 
 void CircleCollider::Update(void)
 {
-	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
-}
-
-void CircleCollider::Render(void)
-{
-	_RenderTarget->DrawEllipse(collBox.cir, _Device->pDefaultBrush);
+	*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
 }
 
 void CircleCollider::IsCollision(Collider * other)

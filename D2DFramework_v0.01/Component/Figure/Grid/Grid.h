@@ -31,5 +31,16 @@ public:
 	virtual void Update(void) override;
 	virtual void Render(void) override;
 
-	void SetGridTransform(GameObject* object, D2D_POINT_2U index);
+	inline D2D_SIZE_F GetCellSize(void) const { return cellSize; }
+	inline D2D_POINT_2U GetMaxCell(void) const { return maxCell; }
+
+	D2D_POINT_2F SetGridPosition(D2D_POINT_2U index);
+	void ChangeCellSize(D2D_SIZE_F cellSize);
+	
+	// UI ¿ë
+	void IncreseMaxCell(void);
+	void DecreaseMaxCell(void);
+
+	void AttachObject(GameObject* object, D2D_POINT_2U index);
+	void DetachObject(GameObject* object);
 };

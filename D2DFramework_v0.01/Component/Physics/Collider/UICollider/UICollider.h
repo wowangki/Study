@@ -39,13 +39,14 @@ public:
 	explicit UICollider(UI* ui, UICOL_TYPE type = UI_RECT);
 	virtual ~UICollider();
 
-	virtual HRESULT Init(D2D_POINT_2F pos = { 0.0f,0.0f }, D2D_SIZE_F size = { 0.0f,0.0f }, PIVOT pivot = PIVOT_CC, float angle = 0.0f) override { return S_OK; }
+	//virtual HRESULT Init(void) override;
+	//virtual HRESULT Init(D2D_POINT_2F pos, D2D_SIZE_F size, float angle = 0.0f) override;
 	virtual void Release(void) override;
 	virtual void Update(void) override;
-	virtual void Render(void) override;
 
 	virtual void IsCollision(void) override;
 
 private:
 	void SetHandler(UI* ui);
+	//virtual void IsCollision(Collider * other) override;
 };

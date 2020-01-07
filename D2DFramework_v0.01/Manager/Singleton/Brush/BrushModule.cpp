@@ -4,6 +4,19 @@
 
 BrushModule::BrushModule()
 {
+	CreateBrush("RED", RGB(255, 0, 0));
+	CreateBrush("BLUE", RGB(0, 0, 255));
+	CreateBrush("GREEN", RGB(0, 255, 0));
+	CreateBrush("MAGENTA", RGB(255, 0, 255));
+	CreateBrush("CYAN", RGB(0, 255, 255));
+	CreateBrush("YELLOW", RGB(255, 255, 0));
+	CreateBrush("WHITE", RGB(255, 255, 255));
+	CreateBrush("BLACK", RGB(0, 0, 0));
+	CreateBrush("GRAY", RGB(125, 125, 125));
+	CreateBrush("COLLIDER", RGB(255, 0, 0));
+	CreateBrush("TRANSFORM", RGB(0, 255, 0));
+	CreateBrush("CAMERA", RGB(255, 255, 255));
+	CreateBrush("IMAGE", RGB(0, 0, 255));
 }
 
 

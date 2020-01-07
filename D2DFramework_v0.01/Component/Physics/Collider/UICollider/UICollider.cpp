@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "UICollider.h"
+#include "../Manager/World/WorldMgr.h"
 #include "../Component/Figure/Transform/Transform.h"
 #include "../Interface/UI/IUI.h"
 #include "../GameObject/UI/UI.h"
@@ -9,6 +10,7 @@ DECLARE_COMPONENT(UICollider);
 UICollider::UICollider(UI* ui, UICOL_TYPE type)
 {
 	this->object = ui;
+	this->object->GetWorld()->RegistPhysics(this);
 	SetHandler(ui);
 	this->type = type;
 
@@ -46,6 +48,7 @@ void UICollider::Release(void)
 	SafeDelete(dragHandler);
 	SafeDelete(collBox.rc);
 	SafeDelete(collBox.cir);
+	this->object->GetWorld()->UnRegistPhysics(this);
 }
 
 void UICollider::Update(void)
@@ -56,18 +59,6 @@ void UICollider::Update(void)
 		break;
 	case UI_CIR:
 		*collBox.cir = MakeCircle(transform->GetWorldPos(), transform->GetSize());
-		break;
-	}
-}
-
-void UICollider::Render(void)
-{
-	switch (type) {
-	case UI_RECT:
-		_RenderTarget->DrawRectangle(collBox.rc, _Device->pDefaultBrush);
-		break;
-	case UI_CIR:
-		_RenderTarget->DrawEllipse(collBox.cir, _Device->pDefaultBrush);
 		break;
 	}
 }

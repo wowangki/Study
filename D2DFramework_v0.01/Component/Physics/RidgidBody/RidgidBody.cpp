@@ -127,4 +127,6 @@ D2D_POINT_2F RidgidBody::t_GetRevisionSize(Collider * other)
 			return GetRevisionSize(ownCir, otherCir);
 		}
 	}
+
+	return { 0,0 };
 }

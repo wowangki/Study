@@ -7,15 +7,14 @@
 #include "../Component/Component.h"
 #include "../Interface/Collision/ICollision.h"
 
-enum class OBJECT_MODE { DEFAULT, INGAME, TOOLSET };
-enum class LAYER { DEFAULT, PLAYER, ENEMY, MAP, UI, MAPOBJECT };
+enum class LAYER { DEFAULT, PLAYER, ENEMY, MAP, UI, MAPOBJECT, ITEM };
 
 class Component;
-class CollisionManager;
+class WorldMgr;
 class GameObject : public ICollision, ITrigger
 {
 protected:
-	class GameObjectManager* mgr;
+	WorldMgr* world;
 
 protected:
 	unordered_map<size_t, Component*> mComponent;
@@ -28,11 +27,7 @@ protected:
 
 	int state;
 	bool isActive;
-	OBJECT_MODE mode;
 	LAYER layer;
-
-protected:
-	CollisionManager* collMgr;
 
 public:
 	virtual HRESULT Init(void) = 0;
@@ -72,20 +67,18 @@ public:
 			mComponent.erase(componentId);
 	}
 
-	inline int GetID(void) { return id; }
-	inline string GetName(void) { return name; }
-	inline string GetTag(void) { return tag; }
-	inline int GetState(void) { return state; }
-	inline bool GetActive(void) { return isActive; }
-	inline OBJECT_MODE GetMode(void) { return mode; }
-	inline LAYER GetLayer(void) { return layer; }
-	inline CollisionManager* GetCollMgr(void) { return collMgr; }
+	inline int GetID(void) const { return id; }
+	inline string GetName(void) const { return name; }
+	inline string GetTag(void) const { return tag; }
+	inline int GetState(void) const { return state; }
+	inline bool GetActive(void) const { return isActive; }
+	inline LAYER GetLayer(void) const { return layer; }
+	inline WorldMgr* GetWorld(void) const { return world; }
 
 	void SetName(string name) { this->name = name; }
 	void SetTag(string tag) { this->tag = tag; }
 	void SetState(int state) { this->state = state; }
 	void SetActive(bool isActive) { this->isActive = isActive; }
-	void SetMode(OBJECT_MODE mode) { this->mode = mode; }
 	void SetLayer(LAYER layer) { this->layer = layer; }
 
 	//Interface Pure Abstract Fuction

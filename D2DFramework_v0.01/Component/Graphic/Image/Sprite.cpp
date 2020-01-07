@@ -2,6 +2,8 @@
 #include "Sprite.h"
 #include "../GameObject/GameObject.h"
 #include "../Component/Figure/Transform/Transform.h"
+#include "../Manager/World/WorldMgr.h"
+#include "../Component/Graphic/Camera/Camera.h"
 #include "../Manager/Singleton/Resource/Image/ImageInfo/ImageInfo.h"
 
 Sprite::Sprite(Transform * transform)
@@ -9,6 +11,7 @@ Sprite::Sprite(Transform * transform)
 	isReverse(false), isCull(false), type(SINGLE)
 {
 	this->transform = transform;
+	this->transform->GetMyObject()->GetWorld()->RegistSprite(this);
 }
 
 Sprite::~Sprite()
@@ -32,20 +35,28 @@ HRESULT Sprite::Init(string nickName, SPRITE_TYPE type, D2D_POINT_2L frame)
 
 void Sprite::Release(void)
 {
+	this->transform->GetMyObject()->GetWorld()->UnRegistSprite(this);
 	imageInfo = nullptr;
 }
 
 void Sprite::Update(void)
 {
+	const Camera* cam = transform->GetMyObject()->GetWorld()->GetCurrentCam();
 	D2D_RECT_F cullWindow;
 	if (transform->GetMyObject()->GetLayer() == LAYER::UI) {
 		cullWindow = MakeRect({ 0,0 }, { WINSIZEX, WINSIZEY });
 	}
 	else {
-		cullWindow = MakeRect({ _CAMERA->x, _CAMERA->y }, { WINSIZEX, WINSIZEY });
+		cullWindow = cam->GetCamRect();
 	}
 
-	isCull = !IsInRect(transform->GetRect(), cullWindow);
+	D2D_RECT_F rc = MakeRect(
+		{ transform->GetWorldPos().x + cam->GetRevisionPos().x,
+		  transform->GetWorldPos().y + cam->GetRevisionPos().y},
+		transform->GetSize(), 
+		transform->GetPivot());
+
+	isCull = !IsInRect(rc, cullWindow);
 }
 
 void Sprite::Render(void)
@@ -56,6 +67,7 @@ void Sprite::Render(void)
 	D2D_POINT_2F pos = transform->GetWorldPos();
 	D2D_SIZE_F size = transform->GetSize();
 	PIVOT pivot = transform->GetPivot();
+	const Camera* cam = transform->GetMyObject()->GetWorld()->GetCurrentCam();
 	float degree = RadianToDegree(transform->GetWorldAngle());
 
 	if (size.width == 0.0f || size.height == 0.0f) {
@@ -78,7 +90,8 @@ void Sprite::Render(void)
 		dxLocation = MakeRect(pos, size, pivot);
 	}
 	else {
-		dxLocation = MakeRect({ pos.x + _CAMERA->x, pos.y + _CAMERA->y }
+		dxLocation = MakeRect({ pos.x + cam->GetRevisionPos().x,
+			pos.y + cam->GetRevisionPos().y }
 		, size, pivot);
 	}
 

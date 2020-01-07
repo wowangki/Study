@@ -48,7 +48,15 @@ public:
 	inline float GetLocalAngle(void)			const { return localAngle; }
 	inline D2D_RECT_F GetRect(void)				const { return rc; }
 	inline Transform* GetParent(void)			const { return parent; }
-	inline Transform* GetChild(int index = 0)	const { return children.front() + index; }
+	inline Transform* GetChild(Transform* child)const { 	
+		for (UINT i = 0; i < children.size(); i++)
+		{
+			if ((children.front() + i) == child) {
+				return children.front() + i;
+			}
+		}
+		return nullptr;
+	}
 
 	// Normal Set
 	void SetWorldPos(D2D_POINT_2F worldPos);
@@ -58,7 +66,8 @@ public:
 	void SetWorldAngle(float degree);
 	void SetLocalAngle(float degree);
 	void SetRect(D2D_RECT_F rect);
-	void SetParent(Transform* parent);
+	void AddParent(Transform* parent);
+	void RemoveParent(void);
 	void AddChild(Transform* child);
 	void RemoveChild(Transform* child);
 
@@ -70,7 +79,8 @@ public:
 	Transform* SetWorldAngleChain(float degree);
 	Transform* SetLocalAngleChain(float degree);
 	Transform* SetRectChain(D2D_RECT_F rect);
-	Transform* SetParentChain(Transform* parent);
+	Transform* AddParentChain(Transform* parent);
+	Transform* RemoveParentChain(void);
 	Transform* AddChildChain(Transform* child);
 	Transform* RemoveChildChain(Transform* child);
 

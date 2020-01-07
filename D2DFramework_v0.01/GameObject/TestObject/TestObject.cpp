@@ -1,24 +1,30 @@
 #include "stdafx.h"
 #include "TestObject.h"
+#include "../Manager/World/WorldMgr.h"
 #include "../Component/Figure/Transform/Transform.h"
+#include "../Component/Physics/Collider/RectCollider/RectCollider.h"
 #include "../Component/Physics/Collider/CircleCollider/CircleCollider.h"
 #include "../Component/Physics/RidgidBody/RidgidBody.h"
 #include "../Component/Graphic/Animator/Animator.h"
+#include "../Component/Graphic/Camera/Camera.h"
 
-TestObject::TestObject()
+TestObject::TestObject(WorldMgr * world)
 {
-	_OBJMGR->RegistObjList(this);
+	this->world = world;
+	this->world->RegistObjList(this);
 	isActive = true;
-	mode = OBJECT_MODE::DEFAULT;
 	layer = LAYER::DEFAULT;
+	isControll = false;
+	speed = 0.0f;
 	AddComponent(new Transform(this))->Init({ 0,0 }, { 0,0 });
+	state = 0;
 }
 
-TestObject::TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
+TestObject::TestObject(WorldMgr* world, D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
 {
-	_OBJMGR->RegistObjList(this);
+	this->world = world;
+	this->world->RegistObjList(this);
 	isActive = true;
-	mode = OBJECT_MODE::DEFAULT;
 	layer = LAYER::DEFAULT;
 	isControll = false;
 	speed = 5.0f;
@@ -35,6 +41,7 @@ HRESULT TestObject::Init(void)
 	//AddComponent(new RidgidBody(this))->Init(30.0f, RidgidBody::COLL_TYPE::RECTANGLE);
 	AddComponent(new CircleCollider(this))->Init();
 	AddComponent(new Animator(this))->AddSprite(state, "Test");
+	AddComponent(new Camera(this))->Init({ 400,300 });
 
 	return S_OK;
 }
@@ -46,8 +53,6 @@ void TestObject::Release(void)
 		SafeRelease(iter->second);
 	}
 	mComponent.clear();
-
-	_OBJMGR->UnRegistObjList(this);
 }
 
 void TestObject::Update(void)
@@ -93,6 +98,11 @@ void TestObject::OnCollisionEnter(Collider * coll)
 
 void TestObject::OnCollisionStay(Collider * coll)
 {
+	WCHAR collString[256];
+	TCHAR collTextString[] = L"Ãæµ¹ÇÔ";
+
+	_stprintf_s(collString, collTextString);
+	_FONT->Render(collString, RectF(WINSIZEX * 0.5f - 20, 0.0f, WINSIZEY * 0.5f + 20, 100.0f));
 }
 
 void TestObject::OnCollisionEnd(Collider * coll)

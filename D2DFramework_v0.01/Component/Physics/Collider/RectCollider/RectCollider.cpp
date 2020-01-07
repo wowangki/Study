@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "RectCollider.h"
+#include "../Manager/World/WorldMgr.h"
 #include "../GameObject/GameObject.h"
 #include "../Component/Figure/Transform/Transform.h"
 #include "../CircleCollider/CircleCollider.h"
@@ -10,8 +11,8 @@ DECLARE_COMPONENT(RectCollider);
 
 RectCollider::RectCollider(GameObject * object)
 {
-	_COLLMGR->RegistCollider(this);
 	this->object = object;
+	//this->object->GetWorld()->RegistPhysics(this);
 	if (Collider* temp = object->GetComponent<Collider>()) {
 		object->GetComponent<Transform>()->RemoveChild(temp->GetTransform());
 	}
@@ -24,16 +25,23 @@ RectCollider::~RectCollider()
 {
 }
 
-HRESULT RectCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle)
+HRESULT RectCollider::Init(void)
 {
-	if (pos.x == 0.0f && pos.y == 0.0f) {
-		transform->Init(object->GetComponent<Transform>());
-	}
-	else {
-		transform->Init(pos, size, pivot, angle, object->GetComponent<Transform>());
-	}
+	transform->Init(object->GetComponent<Transform>());
 
-	
+	collBox.rc = new D2D_RECT_F;
+	*collBox.rc = MakeRect(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
+
+	collBox.cir = nullptr;
+
+	return S_OK;
+}
+
+
+HRESULT RectCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, float angle)
+{
+	transform->Init(pos, size, object->GetComponent<Transform>()->GetPivot(), angle, object->GetComponent<Transform>());
+
 	collBox.rc = new D2D_RECT_F;
 	*collBox.rc = MakeRect(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
 
@@ -45,17 +53,12 @@ HRESULT RectCollider::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float
 void RectCollider::Release(void)
 {
 	SafeRelease(transform);
-	_COLLMGR->UnRegistCollider(this);
+	//this->object->GetWorld()->UnRegistPhysics(this);
 }
 
 void RectCollider::Update(void)
 {
 	*collBox.rc = MakeRect(transform->GetWorldPos(), transform->GetSize(), transform->GetPivot());
-}
-
-void RectCollider::Render(void)
-{
-	_RenderTarget->DrawRectangle(collBox.rc, _Device->pDefaultBrush);
 }
 
 void RectCollider::IsCollision(Collider * other)

@@ -2,10 +2,10 @@
 #include "../System/Application/cApplication.h"
 #include <vector>
 
-class GameObject;
 class MainEntry : public cApplication
 {
 private:
+	class SceneBase* scene;
 
 public:
 	MainEntry();

@@ -16,10 +16,11 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-#include <math.h>
+#include <cfloat>
+#include <cmath>
 #include <string>
 #include <memory>
-#include <time.h>
+#include <ctime>
 using namespace std;
 
 // Direct2D Header File

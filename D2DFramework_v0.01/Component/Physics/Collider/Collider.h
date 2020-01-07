@@ -7,6 +7,7 @@
 
 #pragma once
 #include "../Component/Component.h"
+#include <vector>
 
 class Transform;
 class Collider : public Component {
@@ -24,10 +25,12 @@ protected:
 	} collBox;
 
 public:
-	virtual HRESULT Init(D2D_POINT_2F pos = { 0.0f,0.0f }, D2D_SIZE_F size = { 0.0f,0.0f }, PIVOT pivot = PIVOT_CC, float angle = 0.0f) = 0;
+	
+	virtual HRESULT Init(void) = 0;
+	virtual HRESULT Init(D2D_POINT_2F pos, D2D_SIZE_F size, float angle = 0.0f) = 0;
 	virtual void Release(void)	= 0;
 	virtual void Update(void)	= 0;
-	virtual void Render(void)	= 0;
+	virtual void Render(void) {};
 
 	virtual void IsCollision(Collider* other) = 0;
 	virtual void IsCollision(void) = 0;

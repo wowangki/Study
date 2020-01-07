@@ -28,7 +28,8 @@ public:
 	void RemoveSprite(int state);
 	void ChangeSprite(int state, string nickName);
 	Sprite* FindSprite(int state);
-	Sprite* FindSprite(ImageInfo* img);
+	Sprite* FindSprite(ImageInfo * img);
+	Sprite* FindSprite(Sprite* sprite);
 
 	virtual void Release(void) override;
 	virtual void Update(void) override;

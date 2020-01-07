@@ -20,27 +20,15 @@ Transform::~Transform()
 // ============================================================================//
 HRESULT Transform::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float angle, Transform * parent)
 {
-	while (true) {
-		if (angle >= 0.0f && angle < 2 * PI) break;
+	DegreeToRadian(RevisionDegree(angle));
 
-		if (angle > 0) {
-			angle -= 2 * PI;
-		}
-		else {
-			angle += 2 * PI;
-		}
-	}
-	
 	if (!parent) {
 		this->worldPos = this->localPos = pos;
 		this->size = size;
 		this->pivot = pivot;
 		this->worldAngle = this->localAngle = angle;
-		this->parent = this;
 	}
 	else {
-		this->parent = parent;
-		parent->AddChild(this);
 		this->localPos = pos;
 		this->worldPos.x = parent->worldPos.x + localPos.x;
 		this->worldPos.y = parent->worldPos.y + localPos.y;
@@ -48,6 +36,7 @@ HRESULT Transform::Init(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot, float an
 		this->pivot = pivot;
 		this->localAngle = angle;
 		this->worldAngle = parent->worldAngle + localAngle;
+		AddParent(parent);
 	}
 
 	rc = MakeRect(worldPos, this->size, this->pivot);
@@ -62,14 +51,12 @@ HRESULT Transform::Init(Transform * parent)
 {
 	if (!parent) return S_OK;
 
-	this->parent = parent;
-	parent->AddChild(this);
 	this->worldPos.x = parent->worldPos.x;
 	this->worldPos.y = parent->worldPos.y;
 	this->size = parent->size;
 	this->pivot = parent->pivot;
 	this->worldAngle = parent->worldAngle;
-
+	AddParent(parent);
 	rc = MakeRect(worldPos, size, pivot);
 	return S_OK;
 }
@@ -85,9 +72,11 @@ void Transform::Release(void)
 		SafeRelease(*iter);
 	}
 
-	children.clear();
-	list<Transform*> temp;
-	temp.swap(children);
+	if (!parent) {
+		children.clear();
+		list<Transform*> temp;
+		temp.swap(children);
+	}
 }
 
 // 2019.11.27 ==================================================================//
@@ -95,33 +84,24 @@ void Transform::Release(void)
 // ============================================================================//
 void Transform::Update(void)
 {
-	if (parent == this) {
+	if (!parent) {
 		worldPos = localPos;
 		worldAngle = localAngle;
 	}
 	else {
 		worldPos.x = parent->worldPos.x + localPos.x;
 		worldPos.y = parent->worldPos.y + localPos.y;
-		worldAngle = parent->worldAngle + localAngle;
-	}
-
-	while (true) {
-		if (worldAngle >= 0.0f && worldAngle < 2 * PI) break;
-
-		if (worldAngle > 0) {
-			worldAngle -= 2 * PI;
-		}
-		else{
-			worldAngle += 2 * PI;
-		}
+		worldAngle = DegreeToRadian(RevisionRadian(parent->worldAngle + localAngle));
 	}
 
 	rc = MakeRect(worldPos, size, pivot);
 
 	if (children.empty()) return;
-	for (UINT i = 0; i < children.size(); i++)
-	{
-		(children.front() + i)->Update();
+
+	lIter iter = children.begin();
+
+	for (iter; iter != children.end(); ++iter) {
+		(*iter)->Update();
 	}
 }
 
@@ -130,8 +110,7 @@ void Transform::Update(void)
 // ============================================================================//
 void Transform::Render(void)
 {
-	if(object->GetMode() == OBJECT_MODE::TOOLSET)
-		_RenderTarget->DrawRectangle(rc, _Device->pDefaultBrush);
+	_RenderTarget->DrawRectangle(rc, _Device->pDefaultBrush);
 }
 
 // 2019.11.27 ==================================================================//
@@ -140,6 +119,10 @@ void Transform::Render(void)
 void Transform::SetWorldPos(D2D_POINT_2F worldPos)
 {
 	this->worldPos = worldPos;
+	if (parent) {
+		localPos.x += this->worldPos.x - localPos.x;
+		localPos.y += this->worldPos.y - localPos.y;
+	}
 }
 
 // 2019.11.27 ==================================================================//
@@ -157,7 +140,6 @@ void Transform::SetLocalPos(D2D_POINT_2F localPos)
 void Transform::SetSize(D2D_SIZE_F size)
 {
 	this->size = size;
-	rc = MakeRect(worldPos, size, pivot);
 }
 
 // 2019.11.27 ==================================================================//
@@ -166,7 +148,6 @@ void Transform::SetSize(D2D_SIZE_F size)
 void Transform::SetPivot(PIVOT pivot)
 {
 	this->pivot = pivot;
-	rc = MakeRect(worldPos, size, pivot);
 }
 
 // 2019.11.27 ==================================================================//
@@ -174,8 +155,8 @@ void Transform::SetPivot(PIVOT pivot)
 // ============================================================================//
 void Transform::SetWorldAngle(float degree)
 {
-	if (degree >= 360.0f) degree -= 360.0f;
-	this->worldAngle = DegreeToRadian(degree);
+	this->worldAngle = DegreeToRadian(RevisionDegree(degree));
+	this->localAngle = RevisionRadian(worldAngle - localAngle);
 }
 
 // 2019.11.27 ==================================================================//
@@ -183,22 +164,8 @@ void Transform::SetWorldAngle(float degree)
 // ============================================================================//
 void Transform::SetLocalAngle(float degree)
 {
-	if (degree >= 360.0f) degree -= 360.0f;
-	float temp = this->localAngle;
-	this->localAngle = DegreeToRadian(degree);
-
-	worldAngle += localAngle - temp;
-
-	while (true) {
-		if (worldAngle >= 0.0f && worldAngle < 2 * PI) break;
-
-		if (worldAngle > 0) {
-			worldAngle -= 2 * PI;
-		}
-		else {
-			worldAngle += 2 * PI;
-		}
-	}
+	localAngle = RevisionDegree(degree);
+	Update();
 }
 
 // 2019.11.27 ==================================================================//
@@ -206,21 +173,31 @@ void Transform::SetLocalAngle(float degree)
 // ============================================================================//
 void Transform::SetRect(D2D_RECT_F rect)
 {
-	rc = rect;
+	worldPos.x = (rect.right + rect.left) * 0.5f;
+	worldPos.y = (rect.bottom + rect.top) * 0.5f;
+
+	if (parent) {
+		localPos.x += worldPos.x - localPos.x;
+		localPos.y += worldPos.y - localPos.y;
+	}
+
+	size.width = (rect.right - rect.left) * 0.5f;
+	size.height = (rect.bottom - rect.top) * 0.5f;
+
 	Update();
 }
 
 // 2019.11.27 ==================================================================//
 // 부모(Root / Master) 설정 ====================================================//
 // ============================================================================//
-void Transform::SetParent(Transform * parent)
+void Transform::AddParent(Transform * parent)
 {
-	if (this->parent != this) {
-		this->parent->RemoveChild(this);
-	}
+	parent->AddChild(this);
+}
 
-	this->parent = parent;
-	Update();
+void Transform::RemoveParent(void)
+{
+	parent->RemoveChild(this);
 }
 
 // 2019.11.27 ==================================================================//
@@ -231,11 +208,13 @@ void Transform::AddChild(Transform * child)
 	lIter iter = children.begin();
 
 	for (iter; iter != children.end(); ++iter) {
-		if (*iter == child) return;
+		if (child == (*iter)) return;
 	}
-	child->SetParent(this);
-	children.push_back(child);
 
+	if (child->parent != this) child->parent = this;
+	child->localPos.x = child->worldPos.x - worldPos.x;
+	child->localPos.y = child->worldPos.y - worldPos.y;
+	children.push_back(child);
 	Update();
 }
 
@@ -246,8 +225,16 @@ void Transform::RemoveChild(Transform * child)
 {
 	if (children.empty()) return;
 
-	children.remove(child);
-	Update();
+	lIter iter = children.begin();
+
+	for (iter; iter != children.end(); ++iter) {
+		if (child == (*iter)) {
+			children.erase(iter);
+			child->parent = nullptr;
+			child->Update();
+			return;
+		}
+	}
 }
 
 // 2019.11.27 ==================================================================//
@@ -317,10 +304,16 @@ Transform * Transform::SetRectChain(D2D_RECT_F rect)
 // 2019.11.27 ==================================================================//
 // 부모 (Root / Master) 체인 설정 ===============================================//
 // ============================================================================//
-Transform * Transform::SetParentChain(Transform * parent)
+Transform * Transform::AddParentChain(Transform * parent)
 {
-	SetParent(parent);
+	AddParent(parent);
 	return this;
+}
+
+Transform * Transform::RemoveParentChain(void)
+{
+	RemoveParent();
+	return nullptr;
 }
 
 // 2019.11.27 ==================================================================//
@@ -346,16 +339,8 @@ Transform * Transform::RemoveChildChain(Transform * child)
 // ============================================================================//
 void Transform::Translate(const D2D_POINT_2F power)
 {
-	worldPos.x += power.x;
-	worldPos.y += power.y;
-
-	if (parent == this) {
-		localPos = worldPos;
-	}
-	else {
-		localPos.x += power.x;
-		localPos.y += power.y;
-	}
+	localPos.x += power.x;
+	localPos.y += power.y;
 
 	Update();
 }
@@ -365,23 +350,7 @@ void Transform::Translate(const D2D_POINT_2F power)
 // ============================================================================//
 void Transform::Ratate(const float degree)
 {
-	localAngle += DegreeToRadian(degree);
+	localAngle = RevisionRadian(localAngle += DegreeToRadian(degree));
 	
-	if (parent == this) {
-		worldAngle = localAngle;
-	}
-	else {
-		worldAngle = parent->worldAngle + localAngle;
-	}
-
-	while (true) {
-		if (worldAngle >= 0.0f && worldAngle < 2 * PI) break;
-
-		if (worldAngle > 0) {
-			worldAngle -= 2 * PI;
-		}
-		else {
-			worldAngle += 2 * PI;
-		}
-	}
+	Update();
 }

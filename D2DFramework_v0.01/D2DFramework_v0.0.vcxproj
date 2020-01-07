@@ -148,6 +148,9 @@
     <ClInclude Include="Component\Graphic\Image\Image.h" />
     <ClInclude Include="Component\Graphic\Image\Sprite.h" />
     <ClInclude Include="GameObject\Actor\Actor.h" />
+    <ClInclude Include="GameObject\TestObject\MainCamera.h" />
+    <ClInclude Include="Manager\Graphic\GraphicMgr.h" />
+    <ClInclude Include="Manager\Physics\PhysicsMgr.h" />
     <ClInclude Include="Manager\Singleton\Camera\CameraModule.h" />
     <ClInclude Include="Manager\Singleton\Resource\Image\ImageInfo\ImageInfo.h" />
     <ClInclude Include="Component\Figure\Grid\Grid.h" />
@@ -165,13 +168,12 @@
     <ClInclude Include="GameObject\TestObject\TestObject.h" />
     <ClInclude Include="Manager\Singleton\Resource\Image\ImageManager.h" />
     <ClInclude Include="Component\Algorithm\Search\SearchHandler\SearchHandler.h" />
-    <ClInclude Include="Manager\Singleton\Collision\CollisionMgr.h" />
+    <ClInclude Include="MainEntry\SceneBase\SceneBase.h" />
     <ClInclude Include="Utill\CollisionHelper.h" />
     <ClInclude Include="Component\Physics\Collider\CircleCollider\CircleCollider.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Component\Physics\Collider\Collider.h" />
-    <ClInclude Include="Manager\Singleton\ObjPool\GameObjectManager.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="MainEntry\MainEntry.h" />
     <ClInclude Include="Manager\Singleton\Brush\BrushModule.h" />
@@ -192,6 +194,7 @@
     <ClInclude Include="Component\Figure\Transform\Transform.h" />
     <ClInclude Include="Utill\SingletonHeader.h" />
     <ClInclude Include="Utill\Utillity.h" />
+    <ClInclude Include="Manager\World\WorldMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Graphic\Animator\Animator.cpp" />
@@ -200,6 +203,9 @@
     <ClCompile Include="Component\Graphic\Image\Image.cpp" />
     <ClCompile Include="Component\Graphic\Image\Sprite.cpp" />
     <ClCompile Include="GameObject\Actor\Actor.cpp" />
+    <ClCompile Include="GameObject\TestObject\MainCamera.cpp" />
+    <ClCompile Include="Manager\Graphic\GraphicMgr.cpp" />
+    <ClCompile Include="Manager\Physics\PhysicsMgr.cpp" />
     <ClCompile Include="Manager\Singleton\Camera\CameraModule.cpp" />
     <ClCompile Include="Manager\Singleton\Resource\Image\ImageInfo\ImageInfo.cpp" />
     <ClCompile Include="Component\Figure\Grid\Grid.cpp" />
@@ -212,13 +218,12 @@
     <ClCompile Include="GameObject\TestObject\TestObject.cpp" />
     <ClCompile Include="Manager\Singleton\Resource\Image\ImageManager.cpp" />
     <ClCompile Include="Component\Algorithm\Search\SearchHandler\SearchHandler.cpp" />
-    <ClCompile Include="Manager\Singleton\Collision\CollisionMgr.cpp" />
+    <ClCompile Include="MainEntry\SceneBase\SceneBase.cpp" />
     <ClCompile Include="Utill\CollisionHelper.cpp" />
     <ClCompile Include="Component\Physics\Collider\CircleCollider\CircleCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Component\Physics\Collider\Collider.cpp" />
-    <ClCompile Include="Manager\Singleton\ObjPool\GameObjectManager.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="MainEntry\MainEntry.cpp" />
     <ClCompile Include="Manager\Singleton\Brush\BrushModule.cpp" />
@@ -237,6 +242,7 @@
     </ClCompile>
     <ClCompile Include="System\Application\winMain.cpp" />
     <ClCompile Include="Component\Figure\Transform\Transform.cpp" />
+    <ClCompile Include="Manager\World\WorldMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="진행상황.txt" />

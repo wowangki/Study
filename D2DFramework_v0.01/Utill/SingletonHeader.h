@@ -23,9 +23,3 @@
 
 #include "../Manager/Singleton/Scene/SceneManager.h"
 #define _SCENE SceneManager::GetInstance()
-
-#include "../Manager/Singleton/ObjPool/GameObjectManager.h"
-#define _OBJMGR GameObjectManager::GetInstance()
-
-#include "../Manager/Singleton/Collision/CollisionMgr.h"
-#define _COLLMGR CollisionMgr::GetInstance()

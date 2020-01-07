@@ -9,8 +9,8 @@ private:
 
 
 public:
-	TestObject();
-	explicit TestObject(D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT_LT, float angle = 0.0f);
+	TestObject(WorldMgr* world);
+	explicit TestObject(WorldMgr* world, D2D_POINT_2F pos, D2D_SIZE_F size, PIVOT pivot = PIVOT_LT, float angle = 0.0f);
 	virtual ~TestObject();
 
 	// GameObject을(를) 통해 상속됨

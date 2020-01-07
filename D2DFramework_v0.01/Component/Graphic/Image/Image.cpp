@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Image.h"
 #include "../Component/Figure/Transform/Transform.h"
+#include "../Manager/World/WorldMgr.h"
+#include "../Component/Graphic/Camera/Camera.h"
 #include "../Manager/Singleton/Resource/Image/ImageInfo/ImageInfo.h"
 #include "../GameObject/GameObject.h"
 
@@ -11,6 +13,7 @@ Image::Image(GameObject * object)
 {
 	this->object = object;
 	transform = object->GetComponent<Transform>();
+	this->object->GetWorld()->RegistImage(this);
 }
 
 
@@ -33,20 +36,29 @@ HRESULT Image::Init(string nickName)
 
 void Image::Release(void)
 {
+	this->object->GetWorld()->UnRegistImage(this);
 	imageInfo = nullptr;
 }
 
 void Image::Update(void)
 {
+	const Camera* cam = object->GetWorld()->GetCurrentCam();
 	D2D_RECT_F cullWindow;
+	
 	if (object->GetLayer() == LAYER::UI) {
 		cullWindow = MakeRect({ 0,0 }, { WINSIZEX, WINSIZEY });
 	}
 	else {
-		cullWindow = MakeRect({ _CAMERA->x, _CAMERA->y }, { WINSIZEX, WINSIZEY });
+		cullWindow = cam->GetCamRect();
 	}
 
-	isCull = !IsInRect(transform->GetRect(), cullWindow);
+	D2D_RECT_F rc = MakeRect(
+		{ transform->GetWorldPos().x + cam->GetRevisionPos().x,
+		  transform->GetWorldPos().y + cam->GetRevisionPos().y },
+		transform->GetSize(),
+		transform->GetPivot());
+
+	isCull = !IsInRect(rc, cullWindow);
 }
 
 void Image::Render(void)
@@ -57,14 +69,16 @@ void Image::Render(void)
 	D2D_POINT_2F pos = transform->GetWorldPos();
 	D2D_SIZE_F size = transform->GetSize();
 	PIVOT pivot = transform->GetPivot();
+	const Camera* cam = object->GetWorld()->GetCurrentCam();
 	//뿌려줄 이미지 위치
 	D2D1_RECT_F dxLocation;
 
 	if (object->GetLayer() == LAYER::UI) {
-		dxLocation = MakeRect(pos, size, pivot);
+		dxLocation = MakeRect(pos, size, pivot); 
 	}
 	else {
-		dxLocation = MakeRect({ pos.x + _CAMERA->x, pos.y + _CAMERA->y }
+		dxLocation = MakeRect({ pos.x + cam->GetRevisionPos().x,
+			pos.y + cam->GetRevisionPos().y }
 			, size, pivot);
 	}
 

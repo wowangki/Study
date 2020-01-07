@@ -147,10 +147,19 @@
     <ClInclude Include="Manager\Singleton\Camera\CameraModule.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\Singleton\ObjPool\GameObjectManager.h">
+    <ClInclude Include="Manager\World\WorldMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\Singleton\Collision\CollisionMgr.h">
+    <ClInclude Include="Manager\Graphic\GraphicMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\Physics\PhysicsMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MainEntry\SceneBase\SceneBase.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\TestObject\MainCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -260,10 +269,19 @@
     <ClCompile Include="Manager\Singleton\Camera\CameraModule.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\Singleton\ObjPool\GameObjectManager.cpp">
+    <ClCompile Include="Manager\World\WorldMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\Singleton\Collision\CollisionMgr.cpp">
+    <ClCompile Include="Manager\Graphic\GraphicMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\Physics\PhysicsMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainEntry\SceneBase\SceneBase.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\TestObject\MainCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,6 +20,7 @@ namespace nCollision {
 	float GetDistance(D2D_POINT_2F from, D2D_POINT_2F to);
 	float GetAngle(D2D_POINT_2F from, D2D_POINT_2F to);
 
+
 	// Rect To Rect RevisionSize Getting
 	D2D_POINT_2F GetRevisionSize(D2D_RECT_F from, D2D_RECT_F to);
 	D2D_POINT_2F GetRevisionSize(D2D_RECT_F* from, D2D_RECT_F* to);

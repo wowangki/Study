@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "MainEntry.h"
-#include "../GameObject/TestObject/TestObject.h"
-#include "../Component/Physics/Collider/RectCollider/RectCollider.h"
-#include "../Component/Physics/Collider/CircleCollider/CircleCollider.h"
-#include "../Component/Figure/Transform/Transform.h"
-#include "../Component/Physics/RidgidBody/RidgidBody.h"
+#include "SceneBase/SceneBase.h"
 
 MainEntry::MainEntry()
 {
@@ -16,31 +12,31 @@ MainEntry::~MainEntry()
 	_BRUSH->ReleaseSingleton();
 	_FONT->ReleaseSingleton();
 	_KEYCODE->ReleaseSingleton();
-	_OBJMGR->ReleaseSingleton();
+	_IMAGE->ReleaseSingleton();
+	_SOUND->ReleaseSingleton();
+	_SCENE->ReleaseSingleton();
 }
 
 HRESULT MainEntry::Init(void)
 {
-	_IMAGE->CreateImage("Test", "Resource/Image/Test.png", { 2,1 });
+	scene = new SceneBase;
 
-	_OBJMGR->Init();
+	scene->Init();
 
 	return S_OK;
 }
 
 void MainEntry::Release(void)
 {
-	_OBJMGR->Release();
-	_COLLMGR->Release();
+	SafeRelease(scene);
 }
 
 void MainEntry::Update(void)
 {
-	_OBJMGR->Update();
-	_COLLMGR->Update();
+	scene->Update();
 }
 
 void MainEntry::Render(void)
 {
-	_OBJMGR->Render();
+	scene->Render();
 }
